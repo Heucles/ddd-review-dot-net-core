@@ -44,6 +44,38 @@ namespace DddInPractice.Tests
             money1.GetHashCode().Should().NotBe(money2.GetHashCode());
         }
 
+
+        [Theory]
+        [InlineData(0, 0, 0, 0, 0, 0, 0)]
+        [InlineData(1, 0, 0, 0, 0, 0, 0.01)]
+        [InlineData(1, 2, 0, 0, 0, 0, 0.21)]
+        [InlineData(1, 2, 3, 0, 0, 0, 0.96)]
+        [InlineData(1, 2, 3, 4, 0, 0, 4.96)]
+        [InlineData(1, 2, 3, 4, 5, 0, 29.96)]
+        [InlineData(1, 2, 3, 4, 5, 6, 149.96)]
+        [InlineData(11, 0, 0, 0, 0, 0, 0.11)]
+        [InlineData(110, 0, 0, 0, 100, 0, 501.1)]
+        public void Amount_is_calculated_correctly(
+            int oneCentCount,
+            int tenCentCount,
+            int quarterCount,
+            int oneDollarCount,
+            int fiveDollarCount,
+            int twentyDollarCount,
+            decimal expectedAmount)
+        {
+            Money testedMoney = new Money(
+            oneCentCount,
+            tenCentCount,
+            quarterCount,
+            oneDollarCount,
+            fiveDollarCount,
+            twentyDollarCount);
+
+            testedMoney.Amount.Should().Be(expectedAmount);
+
+        }
+
         [Theory]
         [InlineData(-1, 0, 0, 0, 0, 0)]
         [InlineData(0, -2, 0, 0, 0, 0)]
@@ -52,7 +84,7 @@ namespace DddInPractice.Tests
         [InlineData(0, 0, 0, 0, -5, 0)]
         [InlineData(0, 0, 0, 0, 0, -6)]
         public void Cannot_create_money_with_negative_value
-            (int oneCentCount, int tenCentCount, int quarterCount, int oneDollarCount, int fiveDollarCount, int twentyDollarCount)
+        (int oneCentCount, int tenCentCount, int quarterCount, int oneDollarCount, int fiveDollarCount, int twentyDollarCount)
         {
             Action action = () => new Money(
             oneCentCount,
@@ -63,7 +95,7 @@ namespace DddInPractice.Tests
             twentyDollarCount);
 
             action.Should().Throw<InvalidOperationException>();
-            
+
         }
 
     }

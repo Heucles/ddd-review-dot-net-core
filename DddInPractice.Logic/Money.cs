@@ -11,6 +11,14 @@ namespace DddInPractice.Logic
         public int FiveDollarCount { get; private set; }
         public int TwentyDollarCount { get; private set; }
 
+        public decimal Amount =>
+                 OneCentCount * 0.01m
+                       + TenCentCount * 0.10m
+                       + QuarterCount * 0.25m
+                       + OneDollarCount
+                       + FiveDollarCount * 5
+                       + TwentyDollarCount * 20;
+
         public Money(int oneCentCount, int tenCentCount, int quarterCount, int oneDollarCount, int fiveDollarCount, int twentyDollarCount)
         {
             if (oneCentCount < 0)
