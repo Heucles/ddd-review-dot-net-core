@@ -1,3 +1,5 @@
+using System;
+
 namespace DddInPractice.Logic
 {
     public class Money : ValueObject<Money>
@@ -11,6 +13,19 @@ namespace DddInPractice.Logic
 
         public Money(int oneCentCount, int tenCentCount, int quarterCount, int oneDollarCount, int fiveDollarCount, int twentyDollarCount)
         {
+            if (oneCentCount < 0)
+                throw new InvalidOperationException();
+            if (tenCentCount < 0)
+                throw new InvalidOperationException();
+            if (quarterCount < 0)
+                throw new InvalidOperationException();
+            if (oneDollarCount < 0)
+                throw new InvalidOperationException();
+            if (fiveDollarCount < 0)
+                throw new InvalidOperationException();
+            if (twentyDollarCount < 0)
+                throw new InvalidOperationException();
+
             OneCentCount = oneCentCount;
             TenCentCount = tenCentCount;
             QuarterCount = quarterCount;
@@ -51,7 +66,8 @@ namespace DddInPractice.Logic
 
         protected override int GetHashCodeCore()
         {
-            unchecked {
+            unchecked
+            {
                 int hashCode = OneCentCount;
                 hashCode = (hashCode * 397) ^ TenCentCount;
                 hashCode = (hashCode * 397) ^ QuarterCount;
