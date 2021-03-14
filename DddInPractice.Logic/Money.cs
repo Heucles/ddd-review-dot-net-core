@@ -11,14 +11,18 @@ namespace DddInPractice.Logic
         public static readonly Money Quarter = new Money(0, 0, 1, 0, 0, 0);
         public static readonly Money Dollar = new Money(0, 0, 0, 1, 0, 0);
         public static readonly Money FiveDollar = new Money(0, 0, 0, 0, 1, 0);
-        public static readonly Money TwentyDolar = new Money(0, 0, 0, 0, 0, 1);
+        public static readonly Money TwentyDollar = new Money(0, 0, 0, 0, 0, 1);
 
-        public int OneCentCount { get; private set; }
-        public int TenCentCount { get; private set; }
-        public int QuarterCount { get; private set; }
-        public int OneDollarCount { get; private set; }
-        public int FiveDollarCount { get; private set; }
-        public int TwentyDollarCount { get; private set; }
+
+        // without the getters and setters
+        // even if you provide values through a HTTP 
+        // request they will not be presented
+        public int OneCentCount;
+        public int TenCentCount;
+        public int QuarterCount;
+        public int OneDollarCount;
+        public int FiveDollarCount;
+        public int TwentyDollarCount;
 
         public decimal Amount =>
                  OneCentCount * 0.01m
@@ -28,7 +32,15 @@ namespace DddInPractice.Logic
                        + FiveDollarCount * 5
                        + TwentyDollarCount * 20;
 
-        public Money(int oneCentCount, int tenCentCount, int quarterCount, int oneDollarCount, int fiveDollarCount, int twentyDollarCount)
+        public Money() { }
+
+        public Money(
+            int oneCentCount,
+            int tenCentCount,
+            int quarterCount,
+            int oneDollarCount,
+            int fiveDollarCount,
+            int twentyDollarCount)
         {
             if (oneCentCount < 0)
                 throw new InvalidOperationException();
