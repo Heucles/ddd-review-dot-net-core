@@ -15,9 +15,18 @@ This is project for me to review main DDD concepts and to practice .Net Core
 [unit-tests-tip]: README-REFs/unit-tests-start-tip.png 
 
 
-1.  Unit tests should be written :
-bit.ly/1XF0J6H
+5. 1.  Unit tests should be written when using code first approach:
+    
+        You should start writting your tests once you are done experimenting with your code over your domain classes and you are sure that you've achieved a good enough design on it.
 
+        **Code-first** approach for design experiments and them you should move to **Test-first** approach after you are confident on the class modelling.
+
+6. Three important distinctions between Entities and Value objects and Entities: 
+    * Reference vs Structural Equality
+    * Mutability vs Immutability
+    * **Lifespan: Value Objects should belong to Entities**
+
+7. You should aim into depositing most of the logic that you are able to into value objects instead of entities, specially due to their immutability aspects.
 
 ## Interessting links:
 
