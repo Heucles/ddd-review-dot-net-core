@@ -9,7 +9,7 @@ namespace DddInPractice.Logic
         public Money MoneyInTransaction { get; private set; } = Money.None;
         public void InsertMoney(Money insertedMoney)
         {
-            Money[] acceptedCoinsAndNotes = { Money.Cent, Money.TenCent, Money.Quarter, Money.Dollar, Money.FiveDollar, Money.TwentyDolar };
+            Money[] acceptedCoinsAndNotes = { Money.Cent, Money.TenCent, Money.Quarter, Money.Dollar, Money.FiveDollar, Money.TwentyDollar };
 
             if (!acceptedCoinsAndNotes.Contains(insertedMoney))
                 throw new InvalidOperationException();
