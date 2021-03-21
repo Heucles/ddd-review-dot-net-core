@@ -2,43 +2,76 @@ var inputedMoney = 0;
 
 $(document).ready(function () {
 
+    const BOX_URI = 'https://localhost:5001';
+
     loadVendingItems();
 
+    function addMoney(route, callback) {
+        $.ajax({
+            type: 'POST',
+            url: `${BOX_URI}/command/${route}`,
+            success: function(data){
+                console.log('')
+                console.log('------------------ log while updating the box money ------------------')
+                console.log('')
+                console.log(data);
+                console.log('')
+                console.log('------------------ log while updating the box money ------------------')
+                console.log('')
+                console.log('');
+                updateMoneyBox(data.TotalAmountInTransaction)
+                callback(data)
+            },
+            error: function (err) {
+                console.error('')
+                console.error('------------------ error while updating the box money ------------------')
+                console.error('')
+                console.error(err);
+                console.error('')
+                console.error('------------------ error while updating the box money ------------------')
+                console.error('')
+                console.error(err);
+                alert("Failure Calling The Web Service. Please try again later.");
+            }
+        });
+    }
+
     $('#add-cent-button').on('click', function () {
-        inputedMoney += 0.01;
-        messageBox("You added a Cent");
-        updateMoneyBox(inputedMoney);
+        addMoney('add-cent', ()=>{
+            messageBox("You added a Cent");
+        })
+
     });
-    
+
     $('#add-ten-cent-button').on('click', function () {
-        inputedMoney += .10;
-        messageBox("You've added ten Cent");
-        updateMoneyBox(inputedMoney);
+        addMoney('add-ten-cent', ()=>{
+            messageBox("You've added ten Cent");
+        })
     });
 
     $('#add-quarter-button').on('click', function () {
-        inputedMoney += .25;
-        messageBox("You've added a Quarter")
-        updateMoneyBox(inputedMoney);
+        addMoney('add-quarter', ()=>{
+            messageBox("You've added a Quarter")
+        })
     });
 
     $('#add-dollar-button').on('click', function () {
-        inputedMoney += 1;
-        messageBox("You've added a Dollar");
-        updateMoneyBox(inputedMoney);
+        addMoney('add-dollar', ()=>{
+            messageBox("You've added a Dollar")
+        })  
     });
 
 
     $('#add-five-dollar-button').on('click', function () {
-        inputedMoney += 5;
-        messageBox("You've added five dollars");
-        updateMoneyBox(inputedMoney);
+        addMoney('add-five-dollar', ()=>{
+            messageBox("You've added five dollars")
+        })  
     });
 
-    $('#add-twenty-button').on('click', function () {
-        inputedMoney += 20;
-        messageBox("You've added twenty dollars")
-        updateMoneyBox(inputedMoney);
+    $('#add-twenty-dollar-button').on('click', function () {
+        addMoney('add-twenty-dollar', ()=>{
+            messageBox("You've added twenty dollars")
+        })  
     });
 
     $('#purchase-button').click(function () {

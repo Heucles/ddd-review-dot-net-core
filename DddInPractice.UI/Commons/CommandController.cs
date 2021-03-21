@@ -21,11 +21,11 @@ namespace DddInPractice.UI.Commons
             {
                 this._container.SnackMachine.InsertMoney(money.Money);
 
-                return Ok(
+                return CreatedAtAction("Added: " + Enum.GetName(typeof(MoneyLabel), money.Label),
                     new RouteValueDictionary{
-                        {"Added: ", Enum.GetName(typeof(MoneyLabel), money.Label)},
-                        {"TotalAmountInTransaction: ", this._container.SnackMachine.MoneyInTransaction.Amount},
-                        {"TotalAmount: ", this._container.SnackMachine.MoneyInside.Amount}
+                        {"Added", Enum.GetName(typeof(MoneyLabel), money.Label)},
+                        {"TotalAmountInTransaction", this._container.SnackMachine.MoneyInTransaction.Amount},
+                        {"TotalAmount", this._container.SnackMachine.MoneyInside.Amount}
                             });
             }
             catch (Exception ex)
