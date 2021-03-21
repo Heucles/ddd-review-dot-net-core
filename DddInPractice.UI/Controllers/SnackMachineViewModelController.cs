@@ -16,8 +16,9 @@ namespace DddInPractice.UI.Controllers
 
         // ILogger<SnackMachineViewModelController> _logger;
 
-        public SnackMachineViewModelController(ISnackMachineContainer snackMachineContainer):base(snackMachineContainer)
+        public SnackMachineViewModelController(ISnackMachineContainer snackMachineContainer) : base(snackMachineContainer)
         {
+            this._snackMachineContainer = snackMachineContainer;
         }
 
         // [HttpGet]
@@ -48,5 +49,22 @@ namespace DddInPractice.UI.Controllers
         [HttpPost("add-twenty-dollar")]
         public IActionResult AddTwentyDollar() => base.InsertMoney(MoneyAdded.TwentyDollar);
 
+        [HttpPost("return-money")]
+        public IActionResult ReturnMoney()
+        {
+            try
+            {
+                this._snackMachineContainer.SnackMachine.ReturnMoney();
+
+                return AcceptedAtAction("Returned the money ",
+                    base.SnackMachineStateResult());
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
+        }
     }
 }

@@ -93,7 +93,12 @@ namespace DddInPractice.Logic
 
         public override string ToString()
         {
-            return base.ToString();
+            if (this.Amount < 1)
+            {
+                return "¢" + (this.Amount * 100).ToString("0");
+            }
+
+            return "$" + Amount.ToString("0.00");
         }
 
         protected override bool EqualsCore(Money other)

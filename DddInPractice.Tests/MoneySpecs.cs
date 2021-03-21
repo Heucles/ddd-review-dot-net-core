@@ -107,6 +107,33 @@ namespace DddInPractice.Tests
             action.Should().Throw<InvalidOperationException>();
         }
 
+        
+        [Theory]
+        [InlineData(1, 0, 0, 0, 0, 0,"¢1")]
+        [InlineData(0, 2, 0, 0, 0, 0,"¢20")]
+        [InlineData(0, 0, 3, 0, 0, 0,"¢75")]
+        [InlineData(0, 0, 0, 4, 0, 0,"$4.00")]
+        [InlineData(0, 0, 0, 0, 5, 0,"$25.00")]
+        [InlineData(0, 0, 0, 0, 0, 6,"$120.00")]
+        public void To_String_should_return_the_ammount_of_money_correctly(int oneCentCount,
+                                                                           int tenCentCount,
+                                                                           int quarterCount,
+                                                                           int oneDollarCount,
+                                                                           int fiveDollarCount,
+                                                                           int twentyDollarCount,
+                                                                           string expectedString)
+        {
+            Money money = new Money(oneCentCount,
+                                            tenCentCount,
+                                            quarterCount,
+                                            oneDollarCount,
+                                            fiveDollarCount,
+                                            twentyDollarCount);
+
+            money.ToString().Should().Be(expectedString);
+
+        }
+
         [Theory]
         [InlineData(-1, 0, 0, 0, 0, 0)]
         [InlineData(0, -2, 0, 0, 0, 0)]
@@ -128,6 +155,5 @@ namespace DddInPractice.Tests
             action.Should().Throw<InvalidOperationException>();
 
         }
-
     }
 }

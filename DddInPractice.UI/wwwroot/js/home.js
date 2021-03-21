@@ -6,7 +6,7 @@ $(document).ready(function () {
 
     loadVendingItems();
 
-    function addMoney(route, callback) {
+    function addMoney(route) {
         $.ajax({
             type: 'POST',
             url: `${BOX_URI}/command/${route}`,
@@ -19,8 +19,8 @@ $(document).ready(function () {
                 console.log('------------------ log while updating the box money ------------------')
                 console.log('')
                 console.log('');
+                messageBox("You added " + data.Added);
                 updateMoneyBox(data.TotalAmountInTransaction)
-                callback(data)
             },
             error: function (err) {
                 console.error('')
@@ -37,45 +37,64 @@ $(document).ready(function () {
     }
 
     $('#add-cent-button').on('click', function () {
-        addMoney('add-cent', ()=>{
-            messageBox("You added a Cent");
-        })
+        addMoney('add-cent');
 
     });
 
     $('#add-ten-cent-button').on('click', function () {
-        addMoney('add-ten-cent', ()=>{
-            messageBox("You've added ten Cent");
-        })
+        addMoney('add-ten-cent');
     });
 
     $('#add-quarter-button').on('click', function () {
-        addMoney('add-quarter', ()=>{
-            messageBox("You've added a Quarter")
-        })
+        addMoney('add-quarter');
     });
 
     $('#add-dollar-button').on('click', function () {
-        addMoney('add-dollar', ()=>{
-            messageBox("You've added a Dollar")
-        })  
+        addMoney('add-dollar');
     });
 
 
     $('#add-five-dollar-button').on('click', function () {
-        addMoney('add-five-dollar', ()=>{
-            messageBox("You've added five dollars")
-        })  
+        addMoney('add-five-dollar');
     });
 
     $('#add-twenty-dollar-button').on('click', function () {
-        addMoney('add-twenty-dollar', ()=>{
-            messageBox("You've added twenty dollars")
-        })  
+        addMoney('add-twenty-dollar');
     });
 
     $('#purchase-button').click(function () {
         makePurchase();
+    });
+
+    $('#return-money-button').click(function () {
+        $.ajax({
+            type: 'POST',
+            url: `${BOX_URI}/command/return-money`,
+            success: function(data){
+                console.log('')
+                console.log('------------------ log while returning the money ------------------')
+                console.log('')
+                console.log(data);
+                console.log('')
+                console.log('------------------ log while returning the money ------------------')
+                console.log('')
+                console.log('');
+                updateMoneyBox(data.TotalAmountInTransaction)
+                messageBox("The money was returned");
+            },
+            error: function (err) {
+                console.error('')
+                console.error('------------------ error while returning the money ------------------')
+                console.error('')
+                console.error(err);
+                console.error('')
+                console.error('------------------ error while returning the money ------------------')
+                console.error('')
+                console.error(err);
+                alert("Failure Calling The Web Service. Please try again later.");
+            }
+        });
+        
     });
 
     $('#return-change').on('click', function () {

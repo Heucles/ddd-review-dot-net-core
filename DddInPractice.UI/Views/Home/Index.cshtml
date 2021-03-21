@@ -9,9 +9,17 @@
     <title>Vending Machine Web App A</title>
     <link href="lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
     <style>
-        .col-sm-4 {border: groove}  
-        #headerRow {text-align: center} 
-        #money-input {margin-left: 25%}
+        .col-sm-4 {
+            border: groove
+        }
+
+        #headerRow {
+            text-align: center
+        }
+
+        #money-input {
+            margin-left: 25%
+        }
     </style>
 </head>
 
@@ -21,7 +29,7 @@
             <h1 id="headerRow">Vending Machine A</h1>
         </div>
         <hr>
-        
+
         <div class="row">
             <div class="col-sm-8" id="vending-items">
 
@@ -32,31 +40,40 @@
                 <div class="form-group">
 
                     <h2 style="text-align: center">Total $ In</h2>
-                    <input type="text" class="form-control" id="money-input" style="width:50%" readonly/>
-                    <button type="button" class="btn btn-default" id="add-cent-button" style="width:49%">Add Cent</button>
-                    <button type="button" class="btn btn-default" id="add-ten-cent-button" style="width:49%">Add Ten Cent</button>
-                    <button type="button" class="btn btn-default" id="add-quarter-button" style="width: 49%">Add Quarter</button>
-                    <button type="button" class="btn btn-default" id="add-dollar-button" style="width:49%">Add Dollar</button>
-                    <button type="button" class="btn btn-default" id="add-five-dollar-button" style="width:49%">Add Five Dollar</button>
-                    <button type="button" class="btn btn-default" id="add-twenty-dollar-button" style="width:49%">Add Twenty Dollar</button>
+                    <input type="text" class="form-control" id="money-input" style="width:50%" readonly />
+                    <button type="button" class="btn btn-default" id="add-cent-button" style="width:49%">Add
+                        Cent</button>
+                    <button type="button" class="btn btn-default" id="add-ten-cent-button" style="width:49%">Add Ten
+                        Cent</button>
+                    <button type="button" class="btn btn-default" id="add-quarter-button" style="width: 49%">Add
+                        Quarter</button>
+                    <button type="button" class="btn btn-default" id="add-dollar-button" style="width:49%">Add
+                        Dollar</button>
+                    <button type="button" class="btn btn-default" id="add-five-dollar-button" style="width:49%">Add Five
+                        Dollar</button>
+                    <button type="button" class="btn btn-default" id="add-twenty-dollar-button" style="width:49%">Add
+                        Twenty Dollar</button>
                 </div>
                 <hr>
 
                 <div class="form-group">
                     <h2 style="text-align: center">Messages</h2>
-                    <input type="text" class="form-control" id="vending-message" readonly/>
+                    <input type="text" class="form-control" id="vending-message" readonly />
                     <div class="form-group">
                         <label for="vending-item" class="col-sm-2 label-control">Item:</label>
                         <p></p>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="item-to-vend" readonly/>
+                            <input type="text" class="form-control" id="item-to-vend" readonly />
                             <p></p>
                         </div>
                     </div>
                     <div class="form-group">
-                        <button type="button" 
-                        class="btn btn-primary form-control col-sm-offset-1" 
-                        id="purchase-button" style="width:85%">Make Purchase</button>
+                        <button type="button" class="btn btn-primary form-control col-sm-offset-1" id="purchase-button"
+                            style="width:85%">Make Purchase</button>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-secondary form-control col-sm-offset-1" id="return-money-button"
+                            style="width:85%">Return the Money</button>
                     </div>
                 </div>
                 <hr>
@@ -64,12 +81,12 @@
                 <div class="form-group">
                     <h2 style="text-align:center" id="change-header">Change</h2>
                     <div class="form-group">
-                        <input type="text" class="form-control col-md-offset-1 col-sm-6" 
-                        id="change-input-box" style="width:80%" readonly/>
+                        <input type="text" class="form-control col-md-offset-1 col-sm-6" id="change-input-box"
+                            style="width:80%" readonly />
                     </div>
                     <div class="form-group">
-                        <button type="button" 
-                        class="btn btn-default col-sm-offset-4" id="return-change">Return Change</button>
+                        <button type="button" class="btn btn-default col-sm-offset-4" id="return-change">Return
+                            Change</button>
                     </div>
                 </div>
 

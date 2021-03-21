@@ -38,3 +38,7 @@ This is project for me to review main DDD concepts and to practice .Net Core
 
 * https://enterprisecraftsmanship.com/posts/tdd-best-practices/
 * https://enterprisecraftsmanship.com/posts/integration-testing-or-how-to-sleep-well-at-nights/
+
+### In Regards to Dependency Injection in .Net Core
+
+* https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-5.0
