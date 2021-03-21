@@ -28,6 +28,59 @@ This is project for me to review main DDD concepts and to practice .Net Core
 
 7. You should aim into depositing most of the logic that you are able to into value objects instead of entities, specially due to their immutability aspects.
 
+8. Creting the database: 
+
+    1. Docker command: 
+
+        ```shell 
+        docker run --name sql-server-ddd-review-dotnet-core -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=reviewddd@123' -p 1433:1433 -d mcr.microsoft.com/mssql/server:2017-CU10-ubuntu 
+        ```
+
+    2. Table creation: 
+        ```sql 
+        CREATE TABLE dbo.SnackMachine
+        (
+            SnackMachineID bigint PRIMARY KEY,
+            OneCentCount INT NOT NULL DEFAULT 0,
+            TenCentCount INT NOT NULL DEFAULT 0,
+            QuarterCount INT NOT NULL DEFAULT 0,
+            OneDollarCount INT NOT NULL DEFAULT 0,
+            FiveDollarCount INT NOT NULL DEFAULT 0,
+            TwentyDollarCount INT NOT NULL DEFAULT 0);
+        ```
+    3. Adding the first register: 
+        ```sql 
+        INSERT INTO dbo.SnackMachine VALUES(1,1,1,1,1,1,1);
+        ```
+
+    5. Your connectionString will be: 
+
+        ```@"Server=localhost;Database=DddInPractice;User Id=sa;Password=reviewddd@123;"```
+
+        when running locally, on a container exchange *localhost* for the *db container name*
+
+    4. IMPORTANT: 
+
+        ADD THE USING STATEMENT FOR 
+        ```CSHARP
+        using System.Data.SqlClient;
+        ```
+        Over the SessionFactory.cs file, 
+        and also as Nuget reference to yout project: 
+        ```XML
+            <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
+
+        ```
+        **OTHERWISE IT WON'T WORK FOR NHIBERNATE !!!!**
+
+
+
+
+
+
+
+
+
 ## Interessting links:
 
 ### In Regards to hashcode
@@ -42,3 +95,14 @@ This is project for me to review main DDD concepts and to practice .Net Core
 ### In Regards to Dependency Injection in .Net Core
 
 * https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-5.0
+
+
+docker run --name sql-server-ddd-review-dotnet-core -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=reviewddd123*' -e 'MSSQL_PID=Express' -p 1433:1433 -d mcr.microsoft.com/mssql/server:2017-latest-ubuntu
+
+
+
+
+sql-server-ddd-review-dotnet-core
+
+
+docker run --name sql-server-ddd-review-dotnet-core -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=reviewddd@123' -p 1433:1433 -d mcr.microsoft.com/mssql/server:2017-CU10-ubuntu

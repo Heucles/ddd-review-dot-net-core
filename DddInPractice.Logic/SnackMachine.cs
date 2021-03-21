@@ -3,11 +3,16 @@ using System.Linq;
 
 namespace DddInPractice.Logic
 {
-    public sealed class SnackMachine : Entity
+    public class SnackMachine : Entity
     {
-        public Money MoneyInside { get; private set; } = Money.None;
-        public Money MoneyInTransaction { get; private set; } = Money.None;
-        public void InsertMoney(Money insertedMoney)
+        public virtual Money MoneyInside { get; protected set; } = Money.None;
+        public virtual Money MoneyInTransaction { get; protected set; } = Money.None;
+
+        public SnackMachine()
+        {
+        }
+
+        public virtual void InsertMoney(Money insertedMoney)
         {
             Money[] acceptedCoinsAndNotes = { Money.Cent, Money.TenCent, Money.Quarter, Money.Dollar, Money.FiveDollar, Money.TwentyDollar };
 
@@ -17,12 +22,12 @@ namespace DddInPractice.Logic
             MoneyInTransaction += insertedMoney;
         }
 
-        public void ReturnMoney()
+        public virtual void ReturnMoney()
         {
             MoneyInTransaction = Money.None;
         }
 
-        public void BuySnack()
+        public virtual void BuySnack()
         {
             MoneyInside += MoneyInTransaction;
 
