@@ -1,5 +1,6 @@
 using System;
 using DddInPractice.Logic;
+using NHibernate;
 
 namespace DddInPractice.UI.Models.Impl
 {
@@ -9,10 +10,18 @@ namespace DddInPractice.UI.Models.Impl
 
         public SnackMachine SnackMachine
         {
-           get {
+            get
+            {
                 if (this._snackMachine == null)
                 {
-                    this._snackMachine = new SnackMachine();
+                    using (ISession session = SessionFactory.OpenSession())
+                    {
+                        this._snackMachine = session.Get<SnackMachine>(1L);
+                    }
+                    if (this._snackMachine == null)
+                    {
+                        this._snackMachine = new SnackMachine();
+                    }
                 }
 
                 return this._snackMachine;

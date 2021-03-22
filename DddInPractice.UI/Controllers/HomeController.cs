@@ -31,12 +31,5 @@ namespace DddInPractice.UI.Controllers
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error() => View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-
-        [HttpPost("add-money")]
-        public IActionResult AddMoney ([FromBody] Money value)
-        {
-            Console.WriteLine("###################"+value+"#################");
-            return Ok();
-        }
     }
 }

@@ -1,26 +1,26 @@
 var inputedMoney = 0;
+const BOX_URI = 'https://localhost:5001';
 
 $(document).ready(function () {
 
-    const BOX_URI = 'https://localhost:5001';
-
+    loadInitialState();
     loadVendingItems();
 
     function addMoney(route) {
         $.ajax({
             type: 'POST',
             url: `${BOX_URI}/command/${route}`,
-            success: function(data){
+            success: function (moneyData) {
                 console.log('')
                 console.log('------------------ log while updating the box money ------------------')
                 console.log('')
-                console.log(data);
+                console.log(moneyData);
                 console.log('')
                 console.log('------------------ log while updating the box money ------------------')
                 console.log('')
                 console.log('');
-                messageBox("You added " + data.Added);
-                updateMoneyBox(data.TotalAmountInTransaction)
+                messageBox("You added " + moneyData.Added);
+                updateMoneyBox(moneyData)
             },
             error: function (err) {
                 console.error('')
@@ -70,16 +70,16 @@ $(document).ready(function () {
         $.ajax({
             type: 'POST',
             url: `${BOX_URI}/command/return-money`,
-            success: function(data){
+            success: function (moneyData) {
                 console.log('')
                 console.log('------------------ log while returning the money ------------------')
                 console.log('')
-                console.log(data);
+                console.log(moneyData);
                 console.log('')
                 console.log('------------------ log while returning the money ------------------')
                 console.log('')
                 console.log('');
-                updateMoneyBox(data.TotalAmountInTransaction)
+                updateMoneyBox(moneyData)
                 messageBox("The money was returned");
             },
             error: function (err) {
@@ -94,7 +94,7 @@ $(document).ready(function () {
                 alert("Failure Calling The Web Service. Please try again later.");
             }
         });
-        
+
     });
 
     $('#return-change').on('click', function () {
@@ -132,6 +132,36 @@ function loadVendingItems() {
     alert("You should be loading your itens in here, please FIX THIS");
 }
 
+function loadInitialState() {
+
+    $.ajax({
+        type: 'GET',
+        url: `${BOX_URI}/command/get-snackmachine-state`,
+        success: function (moneyData) {
+            console.log('')
+            console.log('------------------ log while updating the box money ------------------')
+            console.log('')
+            console.log(moneyData);
+            console.log('')
+            console.log('------------------ log while updating the box money ------------------')
+            console.log('')
+            console.log('');
+            updateMoneyBox(moneyData)
+        },
+        error: function (err) {
+            console.error('')
+            console.error('------------------ error while updating the box money ------------------')
+            console.error('')
+            console.error(err);
+            console.error('')
+            console.error('------------------ error while updating the box money ------------------')
+            console.error('')
+            console.error(err);
+            alert("Failure Calling The Web Service. Please try again later.");
+        }
+    });
+}
+
 function selectedItem(id, name) {
     $('#item-to-vend').val(id + ": " + name);
 }
@@ -142,43 +172,48 @@ function messageBox(message) {
 
 function updateMoneyBox(money) {
     $('#money-input').empty();
-    $('#money-input').val(money.toFixed(2));
+    $('#money-input').val(money.TotalAmountInTransaction);
+    $('#total-money-in').empty();
+    $('#total-money-in').val(money.TotalAmount);
+
 }
 
 function makePurchase() {
-    var money = $('#money-input').val();
     var item = $('#item-to-vend').val();
 
     $.ajax({
-        type: 'GET',
-        url: 'http://localhost:8080/money/' + money + '/item/' + item,
-        success: function (returnMoney) {
-            var change = $('#change-input-box');
-            $('#vending-message').val("Item vended. Thank you!");
-            var pennies = returnMoney.pennies;
-            var nickels = returnMoney.nickels;
-            var quarters = returnMoney.quarters;
-            var dimes = returnMoney.dimes;
-            var returnMessage = "";
-            if (quarters != 0) {
-                returnMessage += quarters + ' Quarter/s ';
-            }
-            if (dimes != 0) {
-                returnMessage += dimes + ' Dime/s ';
-            }
-            if (nickels != 0) {
-                returnMessage += nickels + ' Nickel/s ';
-            }
-            if (pennies != 0) {
-                returnMessage += pennies + ' Penny/ies ';
-            }
-            if (quarters == 0 && dimes == 0 && nickels == 0 && pennies == 0) {
-                returnMessage += "There is no change";
-            }
-            change.val(returnMessage);
-            $('#money-input').val('');
-            loadVendingItems();
-            inputedMoney = 0;
+        // url: 'http://localhost:8080/money/' + money + '/item/' + item,
+        type: 'POST',
+        url: `${BOX_URI}/command/buy-snack`,
+        success: function (data) {
+            messageBox(data.Message);
+            updateMoneyBox(data)
+            //var change = $('#change-input-box');
+            // $('#vending-message').val("Item vended. Thank you!");
+            // var pennies = returnMoney.pennies;
+            // var nickels = returnMoney.nickels;
+            // var quarters = returnMoney.quarters;
+            // var dimes = returnMoney.dimes;
+            // var returnMessage = "";
+            // if (quarters != 0) {
+            //     returnMessage += quarters + ' Quarter/s ';
+            // }
+            // if (dimes != 0) {
+            //     returnMessage += dimes + ' Dime/s ';
+            // }
+            // if (nickels != 0) {
+            //     returnMessage += nickels + ' Nickel/s ';
+            // }
+            // if (pennies != 0) {
+            //     returnMessage += pennies + ' Penny/ies ';
+            // }
+            // if (quarters == 0 && dimes == 0 && nickels == 0 && pennies == 0) {
+            //     returnMessage += "There is no change";
+            // }
+            // change.val(returnMessage);
+            // $('#money-input').val('');
+            // loadVendingItems();
+            // inputedMoney = 0;
         },
         error: function (error) {
             var errorMessage = error.responseJSON.message;

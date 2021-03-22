@@ -37,7 +37,9 @@ This is project for me to review main DDD concepts and to practice .Net Core
         ```
 
     2. Table creation: 
-        ```sql 
+        ```sql
+        use DddInPractice;
+        
         CREATE TABLE dbo.SnackMachine
         (
             SnackMachineID bigint PRIMARY KEY,

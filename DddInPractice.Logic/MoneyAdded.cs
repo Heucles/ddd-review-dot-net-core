@@ -44,5 +44,10 @@ namespace DddInPractice.Logic
 
             }
         }
+
+        public override string ToString()
+        {
+            return this.Money.ToString();
+        }
     }
 }

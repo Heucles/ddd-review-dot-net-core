@@ -6,7 +6,7 @@
 <html>
 
 <head>
-    <title>Vending Machine Web App A</title>
+    <title>Vending Machine Web App</title>
     <link href="lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
     <style>
         .col-sm-4 {
@@ -39,8 +39,14 @@
             <div class="col-sm-10">
                 <div class="form-group">
 
-                    <h2 style="text-align: center">Total $ In</h2>
+                    <h2 style="text-align: center">Total $ In the Machine</h2>
+                    <input type="text" class="form-control" id="total-money-in" style="text-align:center;" readonly />
+
+                    <h2 style="text-align: center">Total $ In Transaction</h2>
                     <input type="text" class="form-control" id="money-input" style="width:50%" readonly />
+
+
+
                     <button type="button" class="btn btn-default" id="add-cent-button" style="width:49%">Add
                         Cent</button>
                     <button type="button" class="btn btn-default" id="add-ten-cent-button" style="width:49%">Add Ten
@@ -72,8 +78,8 @@
                             style="width:85%">Make Purchase</button>
                     </div>
                     <div class="form-group">
-                        <button type="button" class="btn btn-secondary form-control col-sm-offset-1" id="return-money-button"
-                            style="width:85%">Return the Money</button>
+                        <button type="button" class="btn btn-secondary form-control col-sm-offset-1"
+                            id="return-money-button" style="width:85%">Return the Money</button>
                     </div>
                 </div>
                 <hr>

@@ -1,16 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using DddInPractice.Logic;
 using DddInPractice.UI.Models;
 using DddInPractice.UI.Models.Impl;
 using DddInPractice.UI.Utils;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NHibernate;
 
 namespace DddInPractice.UI
 {
@@ -18,6 +15,7 @@ namespace DddInPractice.UI
     {
         public Startup(IConfiguration configuration)
         {
+            Initer.Init(@"Server=localhost;Database=DddInPractice;User Id=sa;Password=reviewddd@123;");
             Configuration = configuration;
         }
 
@@ -27,9 +25,13 @@ namespace DddInPractice.UI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddControllers(options =>options.Filters.Add(new HttpResponseExceptionFilter()));
+            services.AddControllers(options => options.Filters.Add(new HttpResponseExceptionFilter()));
 
+            //the row bellow making sure there is only one instance of the SnackMachine through all the application life cycle
             services.AddSingleton<ISnackMachineContainer, SnackMachineContainer>();
+
+            //services.AddScoped<ISnackMachineContainer,SnackMachineContainer>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

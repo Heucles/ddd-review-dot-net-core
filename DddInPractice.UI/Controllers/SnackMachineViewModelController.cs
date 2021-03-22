@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using DddInPractice.UI.Commons;
 using DddInPractice.Logic;
 using DddInPractice.UI.Models;
+using NHibernate;
 
 namespace DddInPractice.UI.Controllers
 {
@@ -21,6 +22,21 @@ namespace DddInPractice.UI.Controllers
             this._snackMachineContainer = snackMachineContainer;
         }
 
+
+        [HttpGet("get-snackmachine-state")]
+        public IActionResult GetSnackMachineState()
+        {
+            try
+            {
+                return Ok(
+                    base.SnackMachineStateResult());
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         // [HttpGet]
         // public IActionResult Get()
         // {
@@ -34,6 +50,7 @@ namespace DddInPractice.UI.Controllers
         //         return BadRequest();
         //     }
         // }
+
 
         [HttpPost("add-cent")]
         public IActionResult AddCent() => base.InsertMoney(MoneyAdded.Cent);
@@ -63,8 +80,29 @@ namespace DddInPractice.UI.Controllers
             {
                 throw ex;
             }
+        }
 
+        [HttpPost("buy-snack")]
+        public IActionResult BuySnack()
+        {
+            try
+            {
+                this._snackMachineContainer.SnackMachine.BuySnack();
 
+                using(ISession session = SessionFactory.OpenSession()){
+                    using(ITransaction transaction = session.BeginTransaction()){
+                        session.SaveOrUpdate(_snackMachineContainer.SnackMachine);
+                        transaction.Commit();
+                    }
+                }
+
+                return AcceptedAtAction("Snack bought ",
+                    base.SnackMachineStateResult("Message","Thanks for your purchase!"));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }
