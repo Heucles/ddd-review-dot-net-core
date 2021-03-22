@@ -54,14 +54,29 @@ This is project for me to review main DDD concepts and to practice .Net Core
         ```sql 
         INSERT INTO dbo.SnackMachine VALUES(1,1,1,1,1,1,1);
         ```
+    4. Creating the Hi/Lo table 
 
-    5. Your connectionString will be: 
+        ```sql 
+            CREATE TABLE dbo.Ids(EntityName VARCHAR(40) NOT NULL,
+            NextHigh INT NOT NULL DEFAULT 1);
+            ;
+        ```
+
+    5. Creating the application inside the Hi/Lo table 
+
+        ```sql 
+            INSERT INTO dbo.Ids VALUES('SnackMachine', 1);
+            ;
+        ```
+
+
+    6. Your connectionString will be: 
 
         ```@"Server=localhost;Database=DddInPractice;User Id=sa;Password=reviewddd@123;"```
 
         when running locally, on a container exchange *localhost* for the *db container name*
 
-    4. IMPORTANT: 
+    7. IMPORTANT: 
 
         ADD THE USING STATEMENT FOR 
         ```CSHARP
@@ -74,12 +89,6 @@ This is project for me to review main DDD concepts and to practice .Net Core
 
         ```
         **OTHERWISE IT WON'T WORK FOR NHIBERNATE !!!!**
-
-
-
-
-
-
 
 
 
