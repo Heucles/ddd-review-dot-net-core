@@ -120,6 +120,19 @@ This is project for me to review main DDD concepts and to practice .Net Core
 
     [root-aggregate-access2]: README-REFs/aggregates-vs-application-services.png 
 
+2. When you are defining the boundaries between aggregates you should ask yourself: *"Does this entity makes sense without that other entity? If the answer is yes, they should be the root of two separate aggregates."*
+
+    * Entities inside of an aggregrate should be cohesive and dependent of each other 
+
+    * Entities of separated aggregates should be **losely coupled** in the relationships among itselfs.
+
+3. Aggregates should be persisted with a eventually consistent state, beware of creating too much big aggregates: 
+    * Most aggregates consist of 1 or 2 entities
+    * 3 entities per aggregate is usually a max
+        * this rule do not apply to a value object 
+
+    * **1 to many** relationships should be viewed as **1 to some** relationships, and if you have more than *30 members* on the many side, it is a sign that you should separate those on a separated aggregate, this is mainly related to the fact that it will be harder to work on performance issues with your domain modeled like that.
+
 
 
 
@@ -140,12 +153,10 @@ This is project for me to review main DDD concepts and to practice .Net Core
 * https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-5.0
 
 
-docker run --name sql-server-ddd-review-dotnet-core -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=reviewddd123*' -e 'MSSQL_PID=Express' -p 1433:1433 -d mcr.microsoft.com/mssql/server:2017-latest-ubuntu
+### In Regards to Aggregates boundaries
 
+* https://enterprisecraftsmanship.com/posts/cohesion-coupling-difference/
 
+* https://enterprisecraftsmanship.com/posts/email-uniqueness-as-aggregate-invariant/
 
-
-sql-server-ddd-review-dotnet-core
-
-
-docker run --name sql-server-ddd-review-dotnet-core -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=reviewddd@123' -p 1433:1433 -d mcr.microsoft.com/mssql/server:2017-CU10-ubuntu
+https://enterprisecraftsmanship.com/posts/optimistic-locking-automatic-retry/

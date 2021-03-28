@@ -21,7 +21,7 @@ namespace DddInPractice.Tests
             //When
             snackMachine.ReturnMoney();
 
-            snackMachine.MoneyInTransaction.Amount.Should().Be(0m);
+            snackMachine.MoneyInTransaction.Should().Be(0m);
 
             //Then
         }
@@ -36,7 +36,7 @@ namespace DddInPractice.Tests
             snackMachine.InsertMoney(Dollar);
 
             //When
-            snackMachine.MoneyInTransaction.Amount.Should().Be(1.01m);
+            snackMachine.MoneyInTransaction.Should().Be(1.01m);
 
             //Then
         }
@@ -60,6 +60,14 @@ namespace DddInPractice.Tests
         {
             //Given
             var snackMachine = new SnackMachine();
+
+            snackMachine.LoadSnacks(
+            new SnackPile(
+                snack: new Snack("Some snack"),
+                quantity: 10,
+                price: 1m),
+            position: 1);
+
             snackMachine.InsertMoney(Dollar);
             snackMachine.InsertMoney(Dollar);
 
@@ -67,7 +75,7 @@ namespace DddInPractice.Tests
             snackMachine.BuySnack(1);
 
             //Then
-            snackMachine.MoneyInTransaction.Should().Be(Money.None);
+            snackMachine.MoneyInTransaction.Should().Be(0m);
             snackMachine.MoneyInside.Amount.Should().Be(2m);
         }
 
@@ -92,7 +100,7 @@ namespace DddInPractice.Tests
 
             //Then
 
-            snackMachine.MoneyInTransaction.Should().Be(None);
+            snackMachine.MoneyInTransaction.Should().Be(0m);
             snackMachine.MoneyInside.Amount.Should().Be(1m);
 
             //validate the number of snacks
@@ -131,6 +139,61 @@ namespace DddInPractice.Tests
             //Then
             action.Should().Throw<InvalidOperationException>();
         }
+
+        [Fact]
+        public void Snack_machine_should_return_money_with_highest_denomination_first()
+        {
+            //Given
+            SnackMachine snackMachine = new SnackMachine();
+            snackMachine.LoadMoney(Dollar);
+
+            snackMachine.InsertMoney(Quarter);
+            snackMachine.InsertMoney(Quarter);
+            snackMachine.InsertMoney(Quarter);
+            snackMachine.InsertMoney(Quarter);
+
+            //When
+            snackMachine.ReturnMoney();
+
+            //Then
+            snackMachine.MoneyInside.QuarterCount.Should().Be(4);
+            snackMachine.MoneyInside.OneDollarCount.Should().Be(0);
+        }
+
+        [Fact]
+        public void After_purchase_change_is_returned()
+        {
+            //Given
+            var snackMachine = new SnackMachine();
+            snackMachine.LoadSnacks(new SnackPile(new Snack("some snack"), 1, 0.5m), 1);
+
+            snackMachine.LoadMoney(TenCent * 10);
+
+            //When
+            snackMachine.InsertMoney(Dollar);
+            snackMachine.BuySnack(1);
+
+            //Then
+            snackMachine.MoneyInside.Amount.Should().Be(1.5m);
+            snackMachine.MoneyInTransaction.Should().Be(0m);
+            snackMachine.MoneyInside.TenCentCount.Should().Be(5);
+        }
+
+        [Fact]
+        public void Cannot_buy_snack_not_enough_change()
+        {
+            //Given
+            var snackMachine = new SnackMachine();
+            snackMachine.LoadSnacks(new SnackPile(new Snack("some snack"), 1, 0.5m), 1);
+
+            snackMachine.LoadMoney(TenCent * 3);
+            //When
+            Action action = () => snackMachine.BuySnack(1);
+
+            //Then
+            action.Should().Throw<InvalidOperationException>();
+        }
+
 
     }
 }

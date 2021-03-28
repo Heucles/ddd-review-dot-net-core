@@ -7,14 +7,14 @@ namespace DddInPractice.Logic
     public class SnackMachine : AggregateRoot
     {
         public virtual Money MoneyInside { get; protected set; }
-        public virtual Money MoneyInTransaction { get; protected set; }
+        public virtual decimal MoneyInTransaction { get; protected set; }
 
         protected virtual IList<Slot> Slots { get; set; }
 
         public SnackMachine()
         {
             this.MoneyInside = Money.None;
-            this.MoneyInTransaction = Money.None;
+            this.MoneyInTransaction = 0m;
 
             // in this domain model every machine will have 3 slots, so for this scenario
             // they can be initialized here
@@ -33,28 +33,36 @@ namespace DddInPractice.Logic
             if (!acceptedCoinsAndNotes.Contains(insertedMoney))
                 throw new InvalidOperationException();
 
-            MoneyInTransaction += insertedMoney;
+            this.MoneyInTransaction += insertedMoney.Amount;
+            this.MoneyInside += insertedMoney;
         }
 
         public virtual void ReturnMoney()
         {
-            MoneyInTransaction = Money.None;
+            Money moneyToReturn = MoneyInside.Allocate(this.MoneyInTransaction);
+            this.MoneyInside -= moneyToReturn;
+            MoneyInTransaction = 0m;
         }
 
         public virtual void BuySnack(int position)
         {
             Slot selectedSlot = Slots.Single(x => x.Position == position);
 
-            if (this.MoneyInTransaction.Amount < selectedSlot.SnackPile.Price)
+            if (this.MoneyInTransaction < selectedSlot.SnackPile.Price)
             {
                 throw new InvalidOperationException();
             }
 
             selectedSlot.SnackPile = selectedSlot.SnackPile.SubtractOne();
 
-            MoneyInside += MoneyInTransaction;
+            // returning the change back to the customer
+            Money change = this.MoneyInside.Allocate(this.MoneyInTransaction - selectedSlot.SnackPile.Price);
 
-            MoneyInTransaction = Money.None;
+            if (change.Amount < MoneyInTransaction - selectedSlot.SnackPile.Price)
+                throw new InvalidOperationException();
+
+            this.MoneyInside -= change;
+            MoneyInTransaction = 0;
 
         }
 
@@ -72,6 +80,11 @@ namespace DddInPractice.Logic
         private Slot GetSlot(int position)
         {
             return this.Slots.Single(x => x.Position == position);
+        }
+
+        public void LoadMoney(Money money)
+        {
+            this.MoneyInside += money;
         }
     }
 }

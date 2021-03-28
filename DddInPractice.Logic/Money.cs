@@ -63,6 +63,38 @@ namespace DddInPractice.Logic
             TwentyDollarCount = twentyDollarCount;
         }
 
+        // Handles all of the logic of bringing up the notes or coins of the highest denomination 
+        internal Money Allocate(decimal amount)
+        {
+            // we start with the most valuable notes and then try to fulfill the amount using then
+            int twentyDollarCount = Math.Min((int)(amount / 20), this.TwentyDollarCount);
+            amount = amount - twentyDollarCount * 20;
+
+            int fiveDollarCount = Math.Min((int)(amount / 5), this.FiveDollarCount);
+            amount = amount - fiveDollarCount * 5;
+
+            int oneDollarCount = Math.Min((int)(amount), this.OneDollarCount);
+            amount = amount - oneDollarCount;
+
+            int quarterCount = Math.Min((int)(amount / 0.25m), this.QuarterCount);
+            amount = amount - quarterCount * 0.25m;
+
+            int tenCentCount = Math.Min((int)(amount / 0.10m), this.TenCentCount);
+            amount = amount - tenCentCount * 0.10m;
+
+            int oneCentCount = Math.Min((int)(amount / 0.01m), this.OneCentCount);
+
+            return new Money(
+                twentyDollarCount: twentyDollarCount,
+                fiveDollarCount: fiveDollarCount,
+                oneDollarCount: oneDollarCount,
+                quarterCount: quarterCount,
+                tenCentCount: tenCentCount,
+                oneCentCount: oneCentCount
+
+            );
+        }
+
         public static Money operator +(Money money1, Money money2)
         {
             Money sum = new Money(
@@ -72,6 +104,20 @@ namespace DddInPractice.Logic
              money1.OneDollarCount + money2.OneDollarCount,
              money1.FiveDollarCount + money2.FiveDollarCount,
              money1.TwentyDollarCount + money2.TwentyDollarCount
+            );
+
+            return sum;
+        }
+
+        public static Money operator *(Money money, int multiplier)
+        {
+            Money sum = new Money(
+             money.OneCentCount * multiplier,
+             money.TenCentCount * multiplier,
+             money.QuarterCount * multiplier,
+             money.OneDollarCount * multiplier,
+             money.FiveDollarCount * multiplier,
+             money.TwentyDollarCount * multiplier
             );
 
             return sum;
