@@ -76,27 +76,60 @@ namespace DddInPractice.Tests
         [Fact]
         public void BuySnack_trades_inserted_money_for_a_snack()
         {
-        //Given
-        var snackMachine = new SnackMachine();
-        snackMachine.LoadSnacks(
-            new SnackPile(
-                snack: new Snack("Some snack"),
-                quantity: 10,
-                price: 1m),
-            position: 1);
-        snackMachine.InsertMoney(Dollar);
+            //Given
+            var snackMachine = new SnackMachine();
+            snackMachine.LoadSnacks(
+                new SnackPile(
+                    snack: new Snack("Some snack"),
+                    quantity: 10,
+                    price: 1m),
+                position: 1);
+            snackMachine.InsertMoney(Dollar);
 
-        //When
+            //When
 
-        snackMachine.BuySnack(1);
-        
-        //Then
+            snackMachine.BuySnack(1);
 
-        snackMachine.MoneyInTransaction.Should().Be(None);
-        snackMachine.MoneyInside.Amount.Should().Be(1m);
-    
-        //validate the number of snacks
-        snackMachine.GetSnackPileInSlot(1).Quantity.Should().Be(9);
+            //Then
+
+            snackMachine.MoneyInTransaction.Should().Be(None);
+            snackMachine.MoneyInside.Amount.Should().Be(1m);
+
+            //validate the number of snacks
+            snackMachine.GetSnackPileInSlot(1).Quantity.Should().Be(9);
+        }
+
+        [Fact]
+        public void Cannot_buy_snack_on_a_machine_with_no_snacks()
+        {
+            //Given
+            var snackMachine = new SnackMachine();
+
+            //When
+            Action action = () => snackMachine.BuySnack(1);
+
+            //Then
+            action.Should().Throw<InvalidOperationException>();
+        }
+
+        [Fact]
+        public void Cannot_make_purchase_if_not_enough_money_is_inserted()
+        {
+            //Given
+            var snackMachine = new SnackMachine();
+            snackMachine.LoadSnacks(
+                new SnackPile(
+                    snack: new Snack("Some snack"),
+                    quantity: 10,
+                    price: 2m),
+                position: 1);
+            snackMachine.InsertMoney(Dollar);
+
+            //When
+            Action action = () => snackMachine.BuySnack(1);
+
+            //Then
+            action.Should().Throw<InvalidOperationException>();
         }
 
     }

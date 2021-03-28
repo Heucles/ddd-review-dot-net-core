@@ -17,7 +17,7 @@ namespace DddInPractice.Logic
             if (quantity < 0) throw new InvalidOperationException();
             if (price < 0) throw new InvalidOperationException();
             if (price % 0.01m > 0) throw new InvalidOperationException();
-            
+
             Snack = snack;
             Quantity = quantity;
             Price = price;
@@ -39,6 +39,8 @@ namespace DddInPractice.Logic
             }
         }
 
+        // the imutability principle is clearly well represented by the folloing method in which
+        // instead of changing the state of the value object, creates a new instance of it with the new values for its state in it
         internal SnackPile SubtractOne()
         {
             return new SnackPile(this.Snack, this.Quantity - 1, this.Price);

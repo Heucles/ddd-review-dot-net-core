@@ -43,8 +43,14 @@ namespace DddInPractice.Logic
 
         public virtual void BuySnack(int position)
         {
-            Slot purchasedSlot = Slots.Single(x => x.Position == position);
-            purchasedSlot.SnackPile = purchasedSlot.SnackPile.SubtractOne();
+            Slot selectedSlot = Slots.Single(x => x.Position == position);
+
+            if (this.MoneyInTransaction.Amount < selectedSlot.SnackPile.Price)
+            {
+                throw new InvalidOperationException();
+            }
+
+            selectedSlot.SnackPile = selectedSlot.SnackPile.SubtractOne();
 
             MoneyInside += MoneyInTransaction;
 
