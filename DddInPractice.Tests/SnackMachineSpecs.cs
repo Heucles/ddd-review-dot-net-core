@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using DddInPractice.Logic;
 using FluentAssertions;
 using Xunit;
@@ -63,7 +64,7 @@ namespace DddInPractice.Tests
             snackMachine.InsertMoney(Dollar);
 
             //When
-            snackMachine.BuySnack();
+            snackMachine.BuySnack(1);
 
             //Then
             snackMachine.MoneyInTransaction.Should().Be(Money.None);
@@ -71,6 +72,27 @@ namespace DddInPractice.Tests
         }
 
         // TODO: Make sure that a new Snack Machine do not contain any money inside 
+
+        [Fact]
+        public void BuySnack_trades_inserted_money_for_a_snack()
+        {
+        //Given
+        var snackMachine = new SnackMachine();
+        snackMachine.LoadSnacks(1,new Snack("Some snack"), 10, 1m);
+        snackMachine.InsertMoney(Dollar);
+
+        //When
+
+        snackMachine.BuySnack(1);
+        
+        //Then
+
+        snackMachine.MoneyInTransaction.Should().Be(None);
+        snackMachine.MoneyInside.Amount.Should().Be(1m);
+    
+        //validate the number of snacks
+        snackMachine.Slots.Single(x=>x.Position == 1).Quantity.Should().Be(9);
+        }
 
     }
 }

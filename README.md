@@ -36,7 +36,15 @@ This is project for me to review main DDD concepts and to practice .Net Core
         docker run --name sql-server-ddd-review-dotnet-core -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=reviewddd@123' -p 1433:1433 -d mcr.microsoft.com/mssql/server:2017-CU10-ubuntu 
         ```
 
+
+
     2. Table creation: 
+        ```sql
+        CREATE DATABASE DddInPractice;
+        ```
+
+
+    3. Table creation: 
         ```sql
         use DddInPractice;
         
@@ -50,11 +58,11 @@ This is project for me to review main DDD concepts and to practice .Net Core
             FiveDollarCount INT NOT NULL DEFAULT 0,
             TwentyDollarCount INT NOT NULL DEFAULT 0);
         ```
-    3. Adding the first register: 
+    4. Adding the first register: 
         ```sql 
         INSERT INTO dbo.SnackMachine VALUES(1,1,1,1,1,1,1);
         ```
-    4. Creating the Hi/Lo table 
+    5. Creating the Hi/Lo table 
 
         ```sql 
             CREATE TABLE dbo.Ids(EntityName VARCHAR(40) NOT NULL,
@@ -62,21 +70,21 @@ This is project for me to review main DDD concepts and to practice .Net Core
             ;
         ```
 
-    5. Creating the application inside the Hi/Lo table 
+    6. Creating the application inside the Hi/Lo table 
 
         ```sql 
             INSERT INTO dbo.Ids VALUES('SnackMachine', 1);
-            ;
+            
         ```
 
 
-    6. Your connectionString will be: 
+    7. Your connectionString will be: 
 
         ```@"Server=localhost;Database=DddInPractice;User Id=sa;Password=reviewddd@123;"```
 
         when running locally, on a container exchange *localhost* for the *db container name*
 
-    7. IMPORTANT: 
+    8. IMPORTANT: 
 
         ADD THE USING STATEMENT FOR 
         ```CSHARP
@@ -89,6 +97,30 @@ This is project for me to review main DDD concepts and to practice .Net Core
 
         ```
         **OTHERWISE IT WON'T WORK FOR NHIBERNATE !!!!**
+
+
+## Aggeregates modeling and rules
+
+1. For this system we have two aggregatres: 
+    * Snacks
+    * SnackMachine
+
+    They should work as retainers of a group of related entities
+
+    Entities outside of the aggregate should only have access to the root aggregate
+
+    ![alt text][root-aggregate-access]
+
+    [root-aggregate-access]: README-REFs/aggregates-expected-relations.png 
+
+    This goes to other layers of the application:
+
+
+    ![alt text][root-aggregate-access2]
+
+    [root-aggregate-access2]: README-REFs/aggregates-vs-application-services.png 
+
+
 
 
 
