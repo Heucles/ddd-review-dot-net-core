@@ -2,7 +2,7 @@ using System;
 
 namespace DddInPractice.Logic
 {
-    public class Snack : Entity
+    public class Snack : AggregateRoot
     {
         public virtual string Name { get; protected set; }
 

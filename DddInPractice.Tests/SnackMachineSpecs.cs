@@ -78,7 +78,12 @@ namespace DddInPractice.Tests
         {
         //Given
         var snackMachine = new SnackMachine();
-        snackMachine.LoadSnacks(1,new Snack("Some snack"), 10, 1m);
+        snackMachine.LoadSnacks(
+            new SnackPile(
+                snack: new Snack("Some snack"),
+                quantity: 10,
+                price: 1m),
+            position: 1);
         snackMachine.InsertMoney(Dollar);
 
         //When
@@ -91,7 +96,7 @@ namespace DddInPractice.Tests
         snackMachine.MoneyInside.Amount.Should().Be(1m);
     
         //validate the number of snacks
-        snackMachine.Slots.Single(x=>x.Position == 1).Quantity.Should().Be(9);
+        snackMachine.GetSnackPileInSlot(1).Quantity.Should().Be(9);
         }
 
     }

@@ -87,7 +87,8 @@ namespace DddInPractice.UI.Controllers
         {
             try
             {
-                this._snackMachineContainer.SnackMachine.BuySnack();
+                // TODO: FIX HERE
+                this._snackMachineContainer.SnackMachine.BuySnack(1);
 
                 using(ISession session = SessionFactory.OpenSession()){
                     using(ITransaction transaction = session.BeginTransaction()){
