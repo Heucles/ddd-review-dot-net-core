@@ -57,6 +57,23 @@ This is project for me to review main DDD concepts and to practice .Net Core
             OneDollarCount INT NOT NULL DEFAULT 0,
             FiveDollarCount INT NOT NULL DEFAULT 0,
             TwentyDollarCount INT NOT NULL DEFAULT 0);
+
+        CREATE TABLE dbo.Snack
+        (
+            SnackId BIGINT NOT NULL PRIMARY KEY,
+            Name    VARCHAR(200) NOT NULL
+        );
+
+
+        CREATE TABLE dbo.Slot
+        (
+            SlotID         BIGINT NOT NULL PRIMARY KEY,
+            Quantity       BIGINT DEFAULT 0 NOT NULL,
+            SnackMachineID BIGINT NOT NULL CONSTRAINT slot_snackmachine_fk REFERENCES dbo.SnackMachine,
+            SnackID        BIGINT NOT NULL CONSTRAINT slot_snack_fk REFERENCES dbo.Snack,
+            Position       INT NOT NULL
+        );
+
         ```
     4. Adding the first register: 
         ```sql 
@@ -70,21 +87,35 @@ This is project for me to review main DDD concepts and to practice .Net Core
             ;
         ```
 
-    6. Creating the application inside the Hi/Lo table 
 
-        ```sql 
-            INSERT INTO dbo.Ids VALUES('SnackMachine', 1);
+    6. Preparing seeding data:
+
+        ```sql
+
+            INSERT INTO dbo.Snack VALUES(1,'Chocolate');
+            INSERT INTO dbo.Snack VALUES(2,'Soda');
+            INSERT INTO dbo.Snack VALUES(3,'Gum');
             
         ```
 
 
-    7. Your connectionString will be: 
+    7. Creating the application inside the Hi/Lo table 
+
+        ```sql 
+            INSERT INTO dbo.Ids VALUES('SnackMachine', 1);
+            INSERT INTO dbo.Ids VALUES('Slot', 1);
+            INSERT INTO dbo.Ids VALUES('Snack', 1);
+            
+        ```
+
+
+    8. Your connectionString will be: 
 
         ```@"Server=localhost;Database=DddInPractice;User Id=sa;Password=reviewddd@123;"```
 
         when running locally, on a container exchange *localhost* for the *db container name*
 
-    8. IMPORTANT: 
+    9. IMPORTANT: 
 
         ADD THE USING STATEMENT FOR 
         ```CSHARP
