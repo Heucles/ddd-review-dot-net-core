@@ -5,21 +5,21 @@ using static DddInPractice.Logic.Money;
 
 namespace DddInPractice.Logic
 {
-    public class SnackMachine : AggregateRoot
+    public class VendingMachine : AggregateRoot
     {
         public virtual Money MoneyInside { get; protected set; }
         public virtual decimal MoneyInTransaction { get; protected set; }
-        protected virtual IList<Slot> Slots { get; }
+        protected virtual IList<SlotOnVendingMachine> Slots { get; }
 
-        public SnackMachine()
+        public VendingMachine()
         {
             MoneyInside = None;
             MoneyInTransaction = 0;
-            Slots = new List<Slot>
+            Slots = new List<SlotOnVendingMachine>
             {
-                new Slot(this, 1),
-                new Slot(this, 2),
-                new Slot(this, 3)
+                new SlotOnVendingMachine(this, 1),
+                new SlotOnVendingMachine(this, 2),
+                new SlotOnVendingMachine(this, 3)
             };
         }
 
@@ -36,7 +36,7 @@ namespace DddInPractice.Logic
                 .ToList();
         }
 
-        private Slot GetSlot(int position)
+        private SlotOnVendingMachine GetSlot(int position)
         {
             return Slots.Single(x => x.Position == position);
         }
@@ -82,7 +82,7 @@ namespace DddInPractice.Logic
             if (CanBuySnack(position) != string.Empty)
                 throw new InvalidOperationException();
 
-            Slot slot = GetSlot(position);
+            SlotOnVendingMachine slot = GetSlot(position);
             slot.SnackPile = slot.SnackPile.SubtractOne();
 
             Money change = MoneyInside.Allocate(MoneyInTransaction - slot.SnackPile.Price);
@@ -92,7 +92,7 @@ namespace DddInPractice.Logic
 
         public virtual void LoadSnacks(int position, SnackPile snackPile)
         {
-            Slot slot = GetSlot(position);
+            SlotOnVendingMachine slot = GetSlot(position);
             slot.SnackPile = snackPile;
         }
 

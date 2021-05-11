@@ -2,13 +2,13 @@ using FluentNHibernate.Mapping;
 
 namespace DddInPractice.Logic
 {
-    public class Slot2Map : ClassMap<Slot2>
+    public class SlotOnVendingMachineMap : ClassMap<SlotOnVendingMachine>
     {
-        public Slot2Map()
+        public SlotOnVendingMachineMap()
         {
             Id(x => x.Id);
             Map(x => x.Position);
-            References(x => x.SnackMachine2);
+            References(x => x.VendingMachine);
 
             Component(x => x.SnackPile, y =>
             {

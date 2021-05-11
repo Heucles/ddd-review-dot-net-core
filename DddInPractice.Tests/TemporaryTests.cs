@@ -18,31 +18,31 @@ namespace DddInPractice.Tests
                 // var snackMachine = session.Get<SnackMachine>(id);
                 // Console.Write(snackMachine.MoneyInside.OneDollarCount);
 
-                var repository2 = new SnackMachine2Repository(session);
+                var repository2 = new VendingMachineRepository(session);
 
                 var snackMachine2 = repository2.GetById(1);
 
-                var repository = new SnackMachineRepository(session);
-                SnackMachine snackMachine1 = repository.GetById(1);
+                // var repository = new SnackMachineRepository(session);
+                // SnackMachine snackMachine1 = repository.GetById(1);
 
-                Console.WriteLine("");
-                Console.WriteLine("");
-                Console.WriteLine("*********************************");
-                Console.WriteLine("");
-                Console.WriteLine(snackMachine1);
-                Console.WriteLine("");
-                Console.WriteLine("*********************************");
-                Console.WriteLine("");
-                Console.WriteLine("");
+                // Console.WriteLine("");
+                // Console.WriteLine("");
+                // Console.WriteLine("*********************************");
+                // Console.WriteLine("");
+                // Console.WriteLine(snackMachine1);
+                // Console.WriteLine("");
+                // Console.WriteLine("*********************************");
+                // Console.WriteLine("");
+                // Console.WriteLine("");
 
                 // Slot teste = repository.GetSlotById(1);
 
-                snackMachine1.InsertMoney(Dollar.Money);
-                snackMachine1.InsertMoney(Dollar.Money);
-                snackMachine1.InsertMoney(Dollar.Money);
+                // snackMachine1.InsertMoney(Dollar.Money);
+                // snackMachine1.InsertMoney(Dollar.Money);
+                // snackMachine1.InsertMoney(Dollar.Money);
 
-                snackMachine1.BuySnack(1);
-                repository.Save(snackMachine1);
+                // snackMachine1.BuySnack(1);
+                // repository.Save(snackMachine1);
 
             }
 

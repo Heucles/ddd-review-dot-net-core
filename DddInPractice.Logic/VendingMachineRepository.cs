@@ -3,10 +3,10 @@ using NHibernate;
 
 namespace DddInPractice.Logic
 {
-    public class SnackMachine2Repository : Repository<SnackMachine2>
+    public class VendingMachineRepository : Repository<VendingMachine>
     {
         private ISession _session;
-        public SnackMachine2Repository(ISession session) : base(session)
+        public VendingMachineRepository(ISession session) : base(session)
         {
             this._session = session;
         }

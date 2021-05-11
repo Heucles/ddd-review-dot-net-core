@@ -3,9 +3,9 @@ using FluentNHibernate.Mapping;
 
 namespace DddInPractice.Logic
 {
-    public class SnackMachine2Map : ClassMap<SnackMachine2>
+    public class VendingMachineMap : ClassMap<VendingMachine>
     {
-        public SnackMachine2Map()
+        public VendingMachineMap()
         {
             // Table("SnackMachine");
             Id(x => x.Id);
@@ -20,8 +20,8 @@ namespace DddInPractice.Logic
                 y.Map(x => x.TwentyDollarCount);
             });
 
-            // HasMany<Slot2>(x=>x.Slots);
-            HasMany<Slot2>(Reveal.Member<SnackMachine2>("Slots")).KeyColumn("SnackMachine2ID")
+            // HasMany<SlotOnVendingMachine>(x=>x.Slots);
+            HasMany<SlotOnVendingMachine>(Reveal.Member<VendingMachine>("Slots")).KeyColumn("VendingMachineID")
                 .Cascade.SaveUpdate()
                 .Not.LazyLoad()
                 .Inverse();
