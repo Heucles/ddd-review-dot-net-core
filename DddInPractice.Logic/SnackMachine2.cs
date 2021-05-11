@@ -9,17 +9,17 @@ namespace DddInPractice.Logic
     {
         public virtual Money MoneyInside { get; protected set; }
         public virtual decimal MoneyInTransaction { get; protected set; }
-        protected virtual IList<Slot> Slots { get; }
+        protected virtual IList<Slot2> Slots { get; }
 
         public SnackMachine2()
         {
             MoneyInside = None;
             MoneyInTransaction = 0;
-            Slots = new List<Slot>
+            Slots = new List<Slot2>
             {
-                new Slot(this, 1),
-                new Slot(this, 2),
-                new Slot(this, 3)
+                new Slot2(this, 1),
+                new Slot2(this, 2),
+                new Slot2(this, 3)
             };
         }
 
@@ -36,7 +36,7 @@ namespace DddInPractice.Logic
                 .ToList();
         }
 
-        private Slot GetSlot(int position)
+        private Slot2 GetSlot(int position)
         {
             return Slots.Single(x => x.Position == position);
         }
@@ -82,7 +82,7 @@ namespace DddInPractice.Logic
             if (CanBuySnack(position) != string.Empty)
                 throw new InvalidOperationException();
 
-            Slot slot = GetSlot(position);
+            Slot2 slot = GetSlot(position);
             slot.SnackPile = slot.SnackPile.SubtractOne();
 
             Money change = MoneyInside.Allocate(MoneyInTransaction - slot.SnackPile.Price);
@@ -92,7 +92,7 @@ namespace DddInPractice.Logic
 
         public virtual void LoadSnacks(int position, SnackPile snackPile)
         {
-            Slot slot = GetSlot(position);
+            Slot2 slot = GetSlot(position);
             slot.SnackPile = snackPile;
         }
 

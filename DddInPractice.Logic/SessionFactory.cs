@@ -52,8 +52,6 @@ namespace DddInPractice.Logic
                 )
             .Conventions.Add<TableNameConvention>()
             .Conventions.Add<HiLoConvention>()
-                    
-
             );
 
             return configuration.BuildSessionFactory();

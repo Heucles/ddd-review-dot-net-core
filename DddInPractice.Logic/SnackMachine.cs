@@ -17,9 +17,9 @@ namespace DddInPractice.Logic
             MoneyInTransaction = 0;
             Slots = new List<Slot>
             {
-                // new Slot(this, 1),
-                // new Slot(this, 2),
-                // new Slot(this, 3)
+                new Slot(this, 1),
+                new Slot(this, 2),
+                new Slot(this, 3)
             };
         }
 

@@ -21,7 +21,7 @@ namespace DddInPractice.Logic
             });
 
             // HasMany<Slot2>(x=>x.Slots);
-            HasMany<Slot>(Reveal.Member<SnackMachine2>("Slots")).KeyColumn("SnackMachineID")
+            HasMany<Slot2>(Reveal.Member<SnackMachine2>("Slots")).KeyColumn("SnackMachine2ID")
                 .Cascade.SaveUpdate()
                 .Not.LazyLoad()
                 .Inverse();
