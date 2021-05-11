@@ -4,8 +4,6 @@ namespace DddInPractice.Logic
 {
     public sealed class SnackPile : ValueObject<SnackPile>
     {
-        private Snack snack;
-
         public Snack Snack { get; }
         public int Quantity { get; }
         public decimal Price { get; }
@@ -32,7 +30,7 @@ namespace DddInPractice.Logic
         {
             unchecked
             {
-                int hashCode = snack.GetHashCode();
+                int hashCode = Snack.GetHashCode();
                 hashCode = (hashCode * 397) ^ Quantity;
                 hashCode = (hashCode * 397) ^ Price.GetHashCode();
                 return hashCode;

@@ -5,21 +5,21 @@ using static DddInPractice.Logic.Money;
 
 namespace DddInPractice.Logic
 {
-    public class SnackMachine : AggregateRoot
+    public class SnackMachine2 : AggregateRoot
     {
         public virtual Money MoneyInside { get; protected set; }
         public virtual decimal MoneyInTransaction { get; protected set; }
         protected virtual IList<Slot> Slots { get; }
 
-        public SnackMachine()
+        public SnackMachine2()
         {
             MoneyInside = None;
             MoneyInTransaction = 0;
             Slots = new List<Slot>
             {
-                // new Slot(this, 1),
-                // new Slot(this, 2),
-                // new Slot(this, 3)
+                new Slot(this, 1),
+                new Slot(this, 2),
+                new Slot(this, 3)
             };
         }
 

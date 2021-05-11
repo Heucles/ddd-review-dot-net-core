@@ -28,7 +28,17 @@ This is project for me to review main DDD concepts and to practice .Net Core
 
 7. You should aim into depositing most of the logic that you are able to into value objects instead of entities, specially due to their immutability aspects.
 
-8. Creting the database: 
+8. A good rule of thumb while managing repositories is to have **one repository per aggregate**.
+ 
+![alt text][repositories-vs-aggregates]
+
+[repositories-vs-aggregates]: README-REFs/repositories-vs-aggregates.png 
+
+* Another important point worth noting about repositories, is that their public methods should work with aggregate roots only, and all of their working with other *internal* entities should be done behind the scenes, either manually in the repository or using ORM mapping capabilities.
+
+* It is a good idea to comission all of the communications with the database to repositories, even if such communications bypass the ORM (using SQL directly or calling stored procedures manually).
+
+9. Creting the database: 
 
     1. Docker command: 
 
@@ -60,7 +70,7 @@ This is project for me to review main DDD concepts and to practice .Net Core
 
         CREATE TABLE dbo.Snack
         (
-            SnackId BIGINT NOT NULL PRIMARY KEY,
+            SnackID BIGINT NOT NULL PRIMARY KEY,
             Name    VARCHAR(200) NOT NULL
         );
 
@@ -69,8 +79,9 @@ This is project for me to review main DDD concepts and to practice .Net Core
         (
             SlotID         BIGINT NOT NULL PRIMARY KEY,
             Quantity       BIGINT DEFAULT 0 NOT NULL,
-            SnackMachineID BIGINT NOT NULL CONSTRAINT slot_snackmachine_fk REFERENCES dbo.SnackMachine,
+            Price          DECIMAL DEFAULT 0 NOT NULL,
             SnackID        BIGINT NOT NULL CONSTRAINT slot_snack_fk REFERENCES dbo.Snack,
+            SnackMachineID BIGINT NOT NULL CONSTRAINT slot_snackmachine_fk REFERENCES dbo.SnackMachine,
             Position       INT NOT NULL
         );
 
@@ -95,6 +106,14 @@ This is project for me to review main DDD concepts and to practice .Net Core
             INSERT INTO dbo.Snack VALUES(1,'Chocolate');
             INSERT INTO dbo.Snack VALUES(2,'Soda');
             INSERT INTO dbo.Snack VALUES(3,'Gum');
+            
+        ```
+
+        ```sql
+
+            INSERT INTO dbo.Slot VALUES(1, 10, 3.00, 1, 1, 1);
+            INSERT INTO dbo.Slot VALUES(2, 10, 2.00, 2, 1, 2);
+            INSERT INTO dbo.Slot VALUES(3, 10, 1.00, 3, 1, 3);
             
         ```
 

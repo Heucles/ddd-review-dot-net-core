@@ -3,6 +3,8 @@ using DddInPractice.Logic;
 using FluentAssertions;
 using System;
 
+using static DddInPractice.Logic.Snack;
+
 namespace DddInPractice.Tests
 {
     public class SnackPileSpecs
@@ -13,7 +15,7 @@ namespace DddInPractice.Tests
         {
 
             //When
-            Action action = () => new SnackPile(snack: new Snack("some snack"), quantity: -1, price: 1m);
+            Action action = () => new SnackPile(snack: Chocolate, quantity: -1, price: 1m);
 
             //Then
             action.Should().Throw<InvalidOperationException>();
@@ -24,7 +26,7 @@ namespace DddInPractice.Tests
         {
 
             //When
-            Action action = () => new SnackPile(snack: new Snack("some snack"), quantity: 1, price: -1m);
+            Action action = () => new SnackPile(snack: Chocolate, quantity: 1, price: -1m);
 
             //Then
             action.Should().Throw<InvalidOperationException>();
@@ -35,7 +37,7 @@ namespace DddInPractice.Tests
         {
 
             //When
-            Action action = () => new SnackPile(snack: new Snack("some snack"), quantity: 1, price: 0.001m);
+            Action action = () => new SnackPile(snack: Chocolate, quantity: 1, price: 0.001m);
 
             //Then
             action.Should().Throw<InvalidOperationException>();
