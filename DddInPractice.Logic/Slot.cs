@@ -15,7 +15,7 @@ namespace DddInPractice.Logic
 
             Position = position;
             SnackMachine = snackMachine;
-            SnackPile = new SnackPile(null, 0, 0m);
+            SnackPile = SnackPile.Empty;
         }
     }
 }

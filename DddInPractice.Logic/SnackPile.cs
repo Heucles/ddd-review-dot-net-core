@@ -4,6 +4,8 @@ namespace DddInPractice.Logic
 {
     public sealed class SnackPile : ValueObject<SnackPile>
     {
+
+        public static SnackPile Empty = new SnackPile(Snack.None, 0, 0m);
         public Snack Snack { get; }
         public int Quantity { get; }
         public decimal Price { get; }
