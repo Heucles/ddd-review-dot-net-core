@@ -1,6 +1,14 @@
-﻿@{
+﻿@using DddInPractice.UI.ViewModels
+
+@{
     ViewData["Title"] = "Home Page";
 }
+
+
+@{
+    var viewModel = SnackMachineViewModel.Create();
+}
+<h1>@viewModel.Caption</h1>
 
 <!DOCTYPE html>
 <html>
@@ -41,6 +49,47 @@
 
                     <h2 style="text-align: center">Total $ In the Machine</h2>
                     <input type="text" class="form-control" id="total-money-in" style="text-align:center;" readonly />
+                    <div class="row">
+                        <div class="col">
+                            <img style="  height: auto; width: auto; max-width: 99px; max-height: 99px;"
+                                src="images/1c.png">
+                            <br>
+                            <label>teste</label>
+                        </div>
+                        <div class="col">
+                            <img style="  height: auto; width: auto; max-width: 99px; max-height: 99px;"
+                                src="images/10c.png">
+                            <br>
+                            <label>teste</label>
+                        </div>
+                        <div class="col">
+                            <img style="  height: auto; width: auto; max-width: 99px; max-height: 99px;"
+                                src="images/25c.png">
+                            <br>
+                            <label>teste</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <img style="  height: auto; width: auto; max-width: 99px; max-height: 99px;"
+                                src="images/1d.png">
+                            <br>
+                            <label>teste</label>
+                        </div>
+                        <div class="col">
+                            <img style="  height: auto; width: auto; max-width: 99px; max-height: 99px;"
+                                src="images/5d.png">
+                            <br>
+                            <label>teste</label>
+                        </div>
+
+                        <div class="col">
+                            <img style="  height: auto; width: auto; max-width: 99px; max-height: 99px;"
+                                src="images/20d.png">
+                            <br>
+                            <label>teste</label>
+                        </div>
+                    </div>
 
                     <h2 style="text-align: center">Total $ In Transaction</h2>
                     <input type="text" class="form-control" id="money-input" style="width:50%" readonly />
@@ -62,6 +111,29 @@
                 </div>
                 <hr>
 
+                <div class="form-group">
+                    <h2 style="text-align: center">Items</h2>
+                    <input type="text" class="form-control" id="vending-message" readonly />
+                    <div class="form-group">
+                        <div class="row">
+                            @foreach (var snackPile in viewModel.Piles)
+                            {
+                                <div class="col">
+                                    <img style="  height: auto; width: auto; max-width: 99px; max-height: 99px;"
+                                    src="@snackPile.Image">
+                                    <br>
+                                    <label>teste</label>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+
+
+                </div>
+                <hr>
                 <div class="form-group">
                     <h2 style="text-align: center">Messages</h2>
                     <input type="text" class="form-control" id="vending-message" readonly />
