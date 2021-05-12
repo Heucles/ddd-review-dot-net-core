@@ -18,9 +18,9 @@ namespace DddInPractice.Tests
                 // var snackMachine = session.Get<SnackMachine>(id);
                 // Console.Write(snackMachine.MoneyInside.OneDollarCount);
 
-                var repository2 = new SnackMachine2Repository(session);
+                // var repository2 = new SnackMachine2Repository(session);
 
-                var snackMachine2 = repository2.GetById(1);
+                // var snackMachine2 = repository2.GetById(1);
 
                 var repository = new SnackMachineRepository(session);
                 SnackMachine snackMachine1 = repository.GetById(1);

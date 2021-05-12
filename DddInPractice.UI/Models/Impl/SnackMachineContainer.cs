@@ -7,6 +7,7 @@ namespace DddInPractice.UI.Models.Impl
     public class SnackMachineContainer : ISnackMachineContainer
     {
         private SnackMachine _snackMachine;
+        private SnackMachineRepository _snackMachineRepository;
 
         public SnackMachine SnackMachine
         {
@@ -16,7 +17,9 @@ namespace DddInPractice.UI.Models.Impl
                 {
                     using (ISession session = SessionFactory.OpenSession())
                     {
-                        this._snackMachine = session.Get<SnackMachine>(1L);
+                        this._snackMachineRepository = new SnackMachineRepository(session);
+                        this._snackMachine = _snackMachineRepository.GetById(1L);
+                        
                     }
                     if (this._snackMachine == null)
                     {
