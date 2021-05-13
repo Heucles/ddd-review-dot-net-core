@@ -17,12 +17,12 @@ namespace DddInPractice.Logic
         // without the getters and setters
         // even if you provide values through a HTTP 
         // request they will not be presented
-        public int OneCentCount;
-        public int TenCentCount;
-        public int QuarterCount;
-        public int OneDollarCount;
-        public int FiveDollarCount;
-        public int TwentyDollarCount;
+        public int OneCentCount { get; }
+        public int TenCentCount { get; }
+        public int QuarterCount { get; }
+        public int OneDollarCount { get; }
+        public int FiveDollarCount { get; }
+        public int TwentyDollarCount { get; }
 
         public decimal Amount =>
                  OneCentCount * 0.01m

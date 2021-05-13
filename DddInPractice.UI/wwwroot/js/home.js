@@ -20,7 +20,7 @@ $(document).ready(function () {
                 console.log('')
                 console.log('');
                 messageBox("You added " + moneyData.Added);
-                updateMoneyBox(moneyData)
+                updateMoneyState(moneyData)
             },
             error: function (err) {
                 console.error('')
@@ -79,7 +79,7 @@ $(document).ready(function () {
                 console.log('------------------ log while returning the money ------------------')
                 console.log('')
                 console.log('');
-                updateMoneyBox(moneyData)
+                updateMoneyState(moneyData)
                 messageBox("The money was returned");
             },
             error: function (err) {
@@ -146,7 +146,7 @@ function loadInitialState() {
             console.log('------------------ log while updating the box money ------------------')
             console.log('')
             console.log('');
-            updateMoneyBox(moneyData)
+            updateMoneyState(moneyData)
         },
         error: function (err) {
             console.error('')
@@ -170,12 +170,17 @@ function messageBox(message) {
     $('#vending-message').val(message);
 }
 
-function updateMoneyBox(money) {
+function updateMoneyState(money) {
     $('#money-input').empty();
-    $('#money-input').val(money.TotalAmountInTransaction);
+    $('#money-input').val(money.MoneyInTransaction);
     $('#total-money-in').empty();
-    $('#total-money-in').val(money.TotalAmount);
-
+    $('#total-money-in').val(money.MoneyInside.amount);
+    $("#qt_1c").text(money.MoneyInside.oneCentCount);
+    $("#qt_10c").text(money.MoneyInside.tenCentCount);
+    $("#qt_25c").text(money.MoneyInside.quarterCount);
+    $("#qt_1d").text(money.MoneyInside.oneDollarCount);
+    $("#qt_5d").text(money.MoneyInside.fiveDollarCount);
+    $("#qt_20d").text(money.MoneyInside.twentyDollarCount);
 }
 
 function makePurchase() {
@@ -187,7 +192,7 @@ function makePurchase() {
         url: `${BOX_URI}/command/buy-snack`,
         success: function (data) {
             messageBox(data.Message);
-            updateMoneyBox(data)
+            updateMoneyState(data)
             //var change = $('#change-input-box');
             // $('#vending-message').val("Item vended. Thank you!");
             // var pennies = returnMoney.pennies;

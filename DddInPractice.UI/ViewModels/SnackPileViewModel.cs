@@ -12,6 +12,8 @@ namespace DddInPractice.UI.ViewModels
         public int ImageWidth => GetImageWidth(_snackPile.Snack);
         public String Image => "images/" + _snackPile.Snack.Name + ".png";
 
+        public String QuantityLeftLabelId => _snackPile.Snack.Name + "_qtleft";
+
         public SnackPileViewModel(SnackPile snackPile)
         {
             _snackPile = snackPile;

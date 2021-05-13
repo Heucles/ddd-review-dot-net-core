@@ -51,43 +51,43 @@
                     <input type="text" class="form-control" id="total-money-in" style="text-align:center;" readonly />
                     <div class="row">
                         <div class="col">
-                            <img style="  height: auto; width: auto; max-width: 99px; max-height: 99px;"
+                            <img style="height: auto; width: auto; max-width: 99px; max-height: 99px;"
                                 src="images/1c.png">
                             <br>
-                            <label>teste</label>
+                            <label  id="qt_1c" style="margin-left: 40px">@viewModel.MoneyInside.OneCentCount</label>
                         </div>
                         <div class="col">
-                            <img style="  height: auto; width: auto; max-width: 99px; max-height: 99px;"
+                            <img style="height: auto; width: auto; max-width: 99px; max-height: 99px;"
                                 src="images/10c.png">
                             <br>
-                            <label>teste</label>
+                            <label id="qt_10c" style="margin-left: 40px">@viewModel.MoneyInside.OneCentCount</label>
                         </div>
                         <div class="col">
-                            <img style="  height: auto; width: auto; max-width: 99px; max-height: 99px;"
+                            <img style="height: auto; width: auto; max-width: 99px; max-height: 99px;"
                                 src="images/25c.png">
                             <br>
-                            <label>teste</label>
+                            <label id="qt_25c" style="margin-left: 40px">@viewModel.MoneyInside.QuarterCount</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
-                            <img style="  height: auto; width: auto; max-width: 99px; max-height: 99px;"
+                            <img style="height: auto; width: auto; max-width: 99px; max-height: 99px;"
                                 src="images/1d.png">
                             <br>
-                            <label>teste</label>
+                            <label id="qt_1d" style="margin-left: 40px">@viewModel.MoneyInside.OneDollarCount</label>
                         </div>
                         <div class="col">
-                            <img style="  height: auto; width: auto; max-width: 99px; max-height: 99px;"
+                            <img style="height: auto; width: auto; max-width: 99px; max-height: 99px;"
                                 src="images/5d.png">
                             <br>
-                            <label>teste</label>
+                            <label id="qt_5d" style="margin-left: 40px">@viewModel.MoneyInside.FiveDollarCount</label>
                         </div>
 
                         <div class="col">
-                            <img style="  height: auto; width: auto; max-width: 99px; max-height: 99px;"
+                            <img style="height: auto; width: auto; max-width: 99px; max-height: 99px;"
                                 src="images/20d.png">
                             <br>
-                            <label>teste</label>
+                            <label id="qt_20d" style="margin-left: 40px">@viewModel.MoneyInside.TwentyDollarCount</label>
                         </div>
                     </div>
 
@@ -113,8 +113,8 @@
 
                 <div class="form-group">
                     <h2 style="text-align: center">Items</h2>
-                    <input type="text" class="form-control" id="vending-message" readonly />
-                    <div class="form-group">
+                    <input type="text" class="form-control" id="item-message" readonly />
+                    <div class="form-group" style="margin-top: 50px;">
                         <div class="row">
                             @foreach (var snackPile in viewModel.Piles)
                             {
@@ -122,7 +122,7 @@
                                     <img style="  height: auto; width: auto; max-width: 99px; max-height: 99px;"
                                     src="@snackPile.Image">
                                     <br>
-                                    <label>teste</label>
+                                    <label id=@snackPile.QuantityLeftLabelId>left: @snackPile.Amount</label>
                                 </div>
                             }
                         </div>
