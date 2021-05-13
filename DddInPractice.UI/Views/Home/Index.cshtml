@@ -8,8 +8,6 @@
 @{
     var viewModel = SnackMachineViewModel.Create();
 }
-<h1>@viewModel.Caption</h1>
-
 <!DOCTYPE html>
 <html>
 
@@ -34,7 +32,7 @@
 <body>
     <div class="container">
         <div class="row">
-            <h1 id="headerRow">Vending Machine A</h1>
+            <h1 id="headerRow">Vending Machine</h1>
         </div>
         <hr>
 
@@ -49,6 +47,7 @@
 
                     <h2 style="text-align: center">Total $ In the Machine</h2>
                     <input type="text" class="form-control" id="total-money-in" style="text-align:center;" readonly />
+                    <br>
                     <div class="row">
                         <div class="col">
                             <img style="height: auto; width: auto; max-width: 99px; max-height: 99px;"
@@ -113,38 +112,27 @@
 
                 <div class="form-group">
                     <h2 style="text-align: center">Items</h2>
-                    <input type="text" class="form-control" id="item-message" readonly />
                     <div class="form-group" style="margin-top: 50px;">
                         <div class="row">
-                            @foreach (var snackPile in viewModel.Piles)
+                            <label hidden id="selectedItem"></label>
+                            @for (int i = 1; i<= viewModel.Piles.Count; i++)
                             {
-                                <div class="col">
-                                    <img style="  height: auto; width: auto; max-width: 99px; max-height: 99px;"
-                                    src="@snackPile.Image">
+                                <div class="col buyableItem" id="@i">
+                                    <img style="height: auto; width: auto; max-width: 99px; max-height: 99px; margin-top: 30px; margin-left: 30px"
+                                     src="@viewModel.Piles[i-1].Image">
                                     <br>
-                                    <label id=@snackPile.QuantityLeftLabelId>left: @snackPile.Amount</label>
+                                    <label id=@viewModel.Piles[i-1].QuantityLeftLabelId>left: @viewModel.Piles[i-1].Amount</label>
                                 </div>
                             }
                         </div>
                     </div>
                 </div>
 
-                <div>
-
-
-                </div>
                 <hr>
                 <div class="form-group">
                     <h2 style="text-align: center">Messages</h2>
                     <input type="text" class="form-control" id="vending-message" readonly />
-                    <div class="form-group">
-                        <label for="vending-item" class="col-sm-2 label-control">Item:</label>
-                        <p></p>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" id="item-to-vend" readonly />
-                            <p></p>
-                        </div>
-                    </div>
+                    <br>
                     <div class="form-group">
                         <button type="button" class="btn btn-primary form-control col-sm-offset-1" id="purchase-button"
                             style="width:85%">Make Purchase</button>

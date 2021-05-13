@@ -11,13 +11,13 @@ namespace DddInPractice.UI.Controllers
 {
 
     [Route("command")]
-    public class SnackMachineViewModelController : CommandController
+    public class SnackMachineController : CommandController
     {
         private readonly ISnackMachineContainer _snackMachineContainer;
 
-        // ILogger<SnackMachineViewModelController> _logger;
+        // ILogger<SnackMachineController> _logger;
 
-        public SnackMachineViewModelController(ISnackMachineContainer snackMachineContainer) : base(snackMachineContainer)
+        public SnackMachineController(ISnackMachineContainer snackMachineContainer) : base(snackMachineContainer)
         {
             this._snackMachineContainer = snackMachineContainer;
         }
@@ -36,21 +36,6 @@ namespace DddInPractice.UI.Controllers
                 throw ex;
             }
         }
-
-        // [HttpGet]
-        // public IActionResult Get()
-        // {
-        //     try
-        //     {
-        //         return Ok();
-        //     }
-        //     catch (Exception)
-        //     {
-        //         _logger.LogError("Failed to execute GET");
-        //         return BadRequest();
-        //     }
-        // }
-
 
         [HttpPost("add-cent")]
         public IActionResult AddCent() => base.InsertMoney(MoneyAdded.Cent);
@@ -82,23 +67,21 @@ namespace DddInPractice.UI.Controllers
             }
         }
 
-        [HttpPost("buy-snack")]
-        public IActionResult BuySnack()
+        [HttpPost("buy-snack/{position}")]
+        public IActionResult BuySnack(int position)
         {
             try
             {
                 // TODO: FIX HERE
-                this._snackMachineContainer.SnackMachine.BuySnack(1);
+                this._snackMachineContainer.SnackMachine.BuySnack(position);
 
                 using(ISession session = SessionFactory.OpenSession()){
-                    using(ITransaction transaction = session.BeginTransaction()){
-                        session.SaveOrUpdate(_snackMachineContainer.SnackMachine);
-                        transaction.Commit();
-                    }
+                    var repository = new SnackMachineRepository(session);
+                    repository.Save(this._snackMachineContainer.SnackMachine);
                 }
 
                 return AcceptedAtAction("Snack bought ",
-                    base.SnackMachineStateResult("Message","Thanks for your purchase!"));
+                    base.SnackMachineStateResult("message","Thanks for your purchase!"));
             }
             catch (Exception ex)
             {

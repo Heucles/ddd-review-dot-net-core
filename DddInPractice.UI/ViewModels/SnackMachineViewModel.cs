@@ -33,7 +33,6 @@ namespace DddInPractice.UI.ViewModels
 
         }
 
-        public string Caption => "Snack Machineraaaaa";
         public string MoneyInTransaction => _snackMachine.MoneyInTransaction.ToString();
         public Money MoneyInside => _snackMachine.MoneyInside;
         public IReadOnlyList<SnackPileViewModel> Piles

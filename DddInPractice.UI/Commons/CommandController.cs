@@ -35,8 +35,9 @@ namespace DddInPractice.UI.Commons
 
         protected RouteValueDictionary SnackMachineStateResult(string specialLabel, string specialValue) => new RouteValueDictionary{
                         {specialLabel, specialValue},
-                        {"MoneyInTransaction", this._container.SnackMachine.MoneyInTransaction},
-                        {"MoneyInside", this._container.SnackMachine.MoneyInside}
+                        {"moneyInTransaction", this._container.SnackMachine.MoneyInTransaction},
+                        {"moneyInside", this._container.SnackMachine.MoneyInside},
+                        {"snackPiles", this._container.SnackMachine.GetAllSnackPiles()},
             };
 
 
