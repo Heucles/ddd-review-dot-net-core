@@ -71,8 +71,8 @@ namespace DddInPractice.Logic
             if (MoneyInTransaction < snackPile.Price)
                 return "Not enough money";
 
-            // if (!MoneyInside.CanAllocate(MoneyInTransaction - snackPile.Price))
-            //     return "Not enough change";
+            if (!MoneyInside.CanAllocate(MoneyInTransaction - snackPile.Price))
+                return "Not enough change";
 
             return string.Empty;
         }

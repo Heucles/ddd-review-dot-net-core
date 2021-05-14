@@ -72,16 +72,24 @@ namespace DddInPractice.UI.Controllers
         {
             try
             {
-                // TODO: FIX HERE
+                string errorWhileBuying = _snackMachineContainer.SnackMachine.CanBuySnack(position);
+
+                if (errorWhileBuying != string.Empty)
+                {
+                    return BadRequest(base.SnackMachineStateResult("message", errorWhileBuying));
+                }
+
+
                 this._snackMachineContainer.SnackMachine.BuySnack(position);
 
-                using(ISession session = SessionFactory.OpenSession()){
+                using (ISession session = SessionFactory.OpenSession())
+                {
                     var repository = new SnackMachineRepository(session);
                     repository.Save(this._snackMachineContainer.SnackMachine);
                 }
 
                 return AcceptedAtAction("Snack bought ",
-                    base.SnackMachineStateResult("message","Thanks for your purchase!"));
+                    base.SnackMachineStateResult("message", "Thanks for your purchase!"));
             }
             catch (Exception ex)
             {

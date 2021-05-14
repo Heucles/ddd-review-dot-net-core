@@ -63,8 +63,25 @@ namespace DddInPractice.Logic
             TwentyDollarCount = twentyDollarCount;
         }
 
-        // Handles all of the logic of bringing up the notes or coins of the highest denomination 
+        internal bool CanAllocate(decimal amount)
+        {
+            Money money = AllocateCore(amount);
+            return money.Amount == amount;
+
+        }
+
         internal Money Allocate(decimal amount)
+        {
+            if (!CanAllocate(amount))
+            {
+                throw new InvalidOperationException();
+            }
+
+            return AllocateCore(amount);
+        }
+        
+        // Handles all of the logic of bringing up the notes or coins of the highest denomination 
+        internal Money AllocateCore(decimal amount)
         {
             // we start with the most valuable notes and then try to fulfill the amount using then
             int twentyDollarCount = Math.Min((int)(amount / 20), this.TwentyDollarCount);

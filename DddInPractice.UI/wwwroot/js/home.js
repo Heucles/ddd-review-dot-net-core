@@ -42,6 +42,8 @@ $(document).ready(function () {
         }
         $(event.currentTarget).css("border", "5px solid red");
         $("#selectedItem").text(event.currentTarget.id);
+
+        $("#purchase-button").css("display", "block");
     });
 
     
@@ -142,10 +144,6 @@ function loadInitialState() {
     });
 }
 
-function selectedItem(id, name) {
-    $('#item-to-vend').val(id + ": " + name);
-}
-
 function messageBox(message) {
     $('#vending-message').val(message);
 }
@@ -182,6 +180,7 @@ function makePurchase() {
         },
         error: function (error) {
             var errorMessage = error.responseJSON.message;
+            alert(errorMessage);
             messageBox(errorMessage);
         }
     });
