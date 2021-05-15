@@ -6,30 +6,45 @@ using DddInPractice.UI.Commons;
 using DddInPractice.Logic;
 using DddInPractice.UI.Models;
 using NHibernate;
+using System.Diagnostics;
+using Microsoft.AspNetCore.Routing;
 
 namespace DddInPractice.UI.Controllers
 {
-
-    [Route("command")]
     public class SnackMachineController : CommandController
     {
-        private readonly ISnackMachineContainer _snackMachineContainer;
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error() => View(new ErrorViewModel
+        {
+            RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+        });
+
+        private readonly ISnackMachineContainer _container;
 
         // ILogger<SnackMachineController> _logger;
 
-        public SnackMachineController(ISnackMachineContainer snackMachineContainer) : base(snackMachineContainer)
+        public SnackMachineController(ISnackMachineContainer snackMachineContainer) : base()
         {
-            this._snackMachineContainer = snackMachineContainer;
+            this._container = snackMachineContainer;
         }
 
-
-        [HttpGet("get-snackmachine-state")]
+        [HttpGet("command/get-snackmachine-state")]
         public IActionResult GetSnackMachineState()
         {
             try
             {
                 return Ok(
-                    base.SnackMachineStateResult());
+                  this.SnackMachineStateResult());
             }
             catch (Exception ex)
             {
@@ -37,29 +52,29 @@ namespace DddInPractice.UI.Controllers
             }
         }
 
-        [HttpPost("add-cent")]
-        public IActionResult AddCent() => base.InsertMoney(MoneyAdded.Cent);
+        [HttpPost("command/add-cent")]
+        public IActionResult AddCent() => this.InsertMoney(MoneyAdded.Cent);
 
-        [HttpPost("add-ten-cent")]
-        public IActionResult AddTenCent() => base.InsertMoney(MoneyAdded.TenCent);
-        [HttpPost("add-quarter")]
-        public IActionResult AddQuarter() => base.InsertMoney(MoneyAdded.Quarter);
-        [HttpPost("add-dollar")]
-        public IActionResult AddDollar() => base.InsertMoney(MoneyAdded.Dollar);
-        [HttpPost("add-five-dollar")]
-        public IActionResult AddFiveDollar() => base.InsertMoney(MoneyAdded.FiveDollar);
-        [HttpPost("add-twenty-dollar")]
-        public IActionResult AddTwentyDollar() => base.InsertMoney(MoneyAdded.TwentyDollar);
+        [HttpPost("command/add-ten-cent")]
+        public IActionResult AddTenCent() => this.InsertMoney(MoneyAdded.TenCent);
+        [HttpPost("command/add-quarter")]
+        public IActionResult AddQuarter() => this.InsertMoney(MoneyAdded.Quarter);
+        [HttpPost("command/add-dollar")]
+        public IActionResult AddDollar() => this.InsertMoney(MoneyAdded.Dollar);
+        [HttpPost("command/add-five-dollar")]
+        public IActionResult AddFiveDollar() => this.InsertMoney(MoneyAdded.FiveDollar);
+        [HttpPost("command/add-twenty-dollar")]
+        public IActionResult AddTwentyDollar() => this.InsertMoney(MoneyAdded.TwentyDollar);
 
-        [HttpPost("return-money")]
+        [HttpPost("command/return-money")]
         public IActionResult ReturnMoney()
         {
             try
             {
-                this._snackMachineContainer.SnackMachine.ReturnMoney();
+                this._container.SnackMachine.ReturnMoney();
 
                 return AcceptedAtAction("Returned the money ",
-                    base.SnackMachineStateResult());
+                  this.SnackMachineStateResult());
             }
             catch (Exception ex)
             {
@@ -67,34 +82,65 @@ namespace DddInPractice.UI.Controllers
             }
         }
 
-        [HttpPost("buy-snack/{position}")]
+        [HttpPost("command/buy-snack/{position}")]
         public IActionResult BuySnack(int position)
         {
             try
             {
-                string errorWhileBuying = _snackMachineContainer.SnackMachine.CanBuySnack(position);
+                string errorWhileBuying = _container.SnackMachine.CanBuySnack(position);
 
                 if (errorWhileBuying != string.Empty)
                 {
-                    return BadRequest(base.SnackMachineStateResult("message", errorWhileBuying));
+                    return BadRequest(this.SnackMachineStateResult("message", errorWhileBuying));
                 }
 
-
-                this._snackMachineContainer.SnackMachine.BuySnack(position);
+                this._container.SnackMachine.BuySnack(position);
 
                 using (ISession session = SessionFactory.OpenSession())
                 {
                     var repository = new SnackMachineRepository(session);
-                    repository.Save(this._snackMachineContainer.SnackMachine);
+                    repository.Save(this._container.SnackMachine);
                 }
 
                 return AcceptedAtAction("Snack bought ",
-                    base.SnackMachineStateResult("message", "Thanks for your purchase!"));
+                  this.SnackMachineStateResult("message", "Thanks for your purchase!"));
             }
             catch (Exception ex)
             {
                 throw ex;
             }
         }
+        private RouteValueDictionary SnackMachineStateResult() => SnackMachineStateResult(String.Empty, String.Empty);
+
+        private RouteValueDictionary SnackMachineStateResult(string specialLabel, string specialValue) => new RouteValueDictionary {
+      {
+        specialLabel,
+        specialValue
+      }, {
+        "moneyInTransaction",
+        this._container.SnackMachine.MoneyInTransaction
+      }, {
+        "moneyInside",
+        this._container.SnackMachine.MoneyInside
+      }, {
+        "snackPiles",
+        this._container.SnackMachine.GetAllSnackPiles()
+      },
+    };
+        protected IActionResult InsertMoney(MoneyAdded money)
+        {
+            try
+            {
+                this._container.SnackMachine.InsertMoney(money.Money);
+
+                return AcceptedAtAction("Added: " + Enum.GetName(typeof(MoneyLabel), money.Label),
+                  SnackMachineStateResult("Added", Enum.GetName(typeof(MoneyLabel), money.Label)));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
     }
 }
