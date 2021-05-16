@@ -1,12 +1,12 @@
 using System;
 using System.Linq;
-using DddInPractice.Logic;
 using FluentAssertions;
 using Xunit;
 
-using static DddInPractice.Logic.Snack;
+using static DddInPractice.Logic.SnackMachines.Snack;
 
-using static DddInPractice.Logic.Money;
+using static DddInPractice.Logic.SharedKernel.Money;
+using DddInPractice.Logic.SnackMachines;
 
 namespace DddInPractice.Tests
 {

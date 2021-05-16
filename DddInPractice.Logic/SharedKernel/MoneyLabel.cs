@@ -1,6 +1,6 @@
 using System;
 
-namespace DddInPractice.Logic
+namespace DddInPractice.Logic.SharedKernel
 {
     public enum MoneyLabel
     {

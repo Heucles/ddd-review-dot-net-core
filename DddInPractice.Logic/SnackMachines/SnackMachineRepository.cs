@@ -1,7 +1,8 @@
 using System;
+using DddInPractice.Logic.Common;
 using NHibernate;
 
-namespace DddInPractice.Logic
+namespace DddInPractice.Logic.SnackMachines
 {
     public class SnackMachineRepository : Repository<SnackMachine>
     {

@@ -1,6 +1,7 @@
 using System;
+using DddInPractice.Logic.Common;
 
-namespace DddInPractice.Logic
+namespace DddInPractice.Logic.SharedKernel
 {
     public class MoneyAdded : ValueObject<MoneyAdded>
     {

@@ -1,4 +1,4 @@
-using DddInPractice.Logic;
+using DddInPractice.Logic.Utils;
 using DddInPractice.UI.Models;
 using DddInPractice.UI.Models.Impl;
 using DddInPractice.UI.Utils;

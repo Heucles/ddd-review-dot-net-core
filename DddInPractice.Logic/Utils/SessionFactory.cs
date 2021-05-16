@@ -13,7 +13,7 @@ using NHibernate;
 // https://github.com/nhibernate/nhibernate-core/discussions/2661
 using System.Data.SqlClient;
 
-namespace DddInPractice.Logic
+namespace DddInPractice.Logic.Utils
 {
     public static class SessionFactory
     {

@@ -2,6 +2,7 @@ using Xunit;
 using DddInPractice.Logic;
 using FluentAssertions;
 using System;
+using DddInPractice.Logic.SharedKernel;
 
 namespace DddInPractice.Tests
 {

@@ -1,7 +1,7 @@
 using System;
 using NHibernate;
 
-namespace DddInPractice.Logic
+namespace DddInPractice.Logic.Common
 {
     public abstract class Repository<T> where T : AggregateRoot
     {

@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using DddInPractice.Logic;
+using DddInPractice.Logic.SharedKernel;
+using DddInPractice.Logic.SnackMachines;
+using DddInPractice.Logic.Utils;
 using NHibernate;
 
 namespace DddInPractice.UI.ViewModels

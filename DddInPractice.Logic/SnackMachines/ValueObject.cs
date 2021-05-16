@@ -1,6 +1,6 @@
 using System;
 
-namespace DddInPractice.Logic
+namespace DddInPractice.Logic.SnackMachines
 {
     public abstract class ValueObject<T> where T : ValueObject<T>
     {

@@ -3,11 +3,13 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using DddInPractice.UI.Commons;
-using DddInPractice.Logic;
 using DddInPractice.UI.Models;
 using NHibernate;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Routing;
+using DddInPractice.Logic.SnackMachines;
+using DddInPractice.Logic.SharedKernel;
+using DddInPractice.Logic.Utils;
 
 namespace DddInPractice.UI.Controllers
 {

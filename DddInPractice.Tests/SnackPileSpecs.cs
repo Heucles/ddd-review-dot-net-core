@@ -1,9 +1,9 @@
 using Xunit;
-using DddInPractice.Logic;
 using FluentAssertions;
 using System;
 
-using static DddInPractice.Logic.Snack;
+using static DddInPractice.Logic.SnackMachines.Snack;
+using DddInPractice.Logic.SnackMachines;
 
 namespace DddInPractice.Tests
 {

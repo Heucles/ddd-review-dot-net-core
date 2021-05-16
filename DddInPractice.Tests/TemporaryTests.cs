@@ -1,8 +1,9 @@
 using System;
-using DddInPractice.Logic;
+using DddInPractice.Logic.SnackMachines;
+using DddInPractice.Logic.Utils;
 using NHibernate;
 using Xunit;
-using static DddInPractice.Logic.MoneyAdded;
+using static DddInPractice.Logic.SharedKernel.MoneyAdded;
 
 namespace DddInPractice.Tests
 {
