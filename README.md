@@ -64,6 +64,16 @@ This is project for me to review main DDD concepts and to practice .Net Core
 
     [bounded-context-vs-subdomain-2]: README-REFs/bounded-context-vs-subdomain-2.png
 
+11. Code Reuse Between Bounded Contexts
+
+    You should not use code of entities from one Bounded Context into the other, also, if you feel that there is a use case for valueObjects you can extract them into a sharedKernel and do so. 
+
+    ![alt text][shared-code-bounded-context]
+
+    [shared-code-bounded-context]: README-REFs/shared-code-bounded-context.png
+
+
+
 9. Creting the database: 
 
     1. Docker command: 
