@@ -38,6 +38,32 @@ This is project for me to review main DDD concepts and to practice .Net Core
 
 * It is a good idea to comission all of the communications with the database to repositories, even if such communications bypass the ORM (using SQL directly or calling stored procedures manually).
 
+9. Bounded Contexts: 
+
+    It is a fundamental pattern for DDD, it is for when your project grows and you have more people working on the project and becomes harder to have a single unified model for the hole project.
+
+    ![alt text][bounded-contexts-1]
+
+    [bounded-contexts-1]: README-REFs/bounded-contexts-1.png 
+
+    ![alt text][bounded-contexts-2]
+
+    [bounded-contexts-2]: README-REFs/bounded-contexts-2.png
+
+10. Bounded Contexts vs Sub-Domains: 
+
+    Those are also very fundamental concepts which are constantly mistaken by programmers while discussing DDD. 
+
+    They should have a relationship proportion of 1 to 1 being that the sub-domain relates to the problem that you are trying to solve, as the bounded-context is most likely the representation of the sub-domain in the solution being implemented.
+
+    ![alt text][bounded-context-vs-subdomain-1]
+
+    [bounded-context-vs-subdomain-1]: README-REFs/bounded-context-vs-subdomain-1.png 
+
+    ![alt text][bounded-context-vs-subdomain-2]
+
+    [bounded-context-vs-subdomain-2]: README-REFs/bounded-context-vs-subdomain-2.png
+
 9. Creting the database: 
 
     1. Docker command: 
