@@ -6,13 +6,12 @@
 
 
 @{
-    var viewModel = SnackMachineViewModel.Create();
+    var viewModel = AtmViewModel.Create();
 }
 <!DOCTYPE html>
 <html>
 
 <head>
-    <title>Vending Machine Web App</title>
     <link href="lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
     <style>
         .col-sm-4 {
@@ -43,11 +42,11 @@
 
                     <div class="form-group">
 
-                        <b>Money Inside: $</b> <b></b>
+                        <b>Money Inside: $</b> <b id="money-inside-lbl">@viewModel.MoneyInside.Amount</b>
                     </div>
                     <div class="form-group">
 
-                        <b>Money Charged: $</b> <b></b>
+                        <b>Money Charged: $</b> <b id="money-charged-lbl">@viewModel.MoneyCharged</b>
                     </div>
                     <br>
                     <div class="row">
@@ -94,7 +93,7 @@
                     </div>
 
                     <div class="form-group" style="margin-bottom: 50px;">
-                        <input type="number" class="form-control" id="money-input" min="0" max="10" step="2" value="6">
+                        <input type="number" class="form-control" id="money-input" min="0" max="1000000" step="0.01" value="0">
                         </br>
                         <button type="button" class="btn btn-secondary form-control col-sm-offset-1"
                             id="take-money-button" style="width:85%">Take Money</button>
@@ -103,7 +102,7 @@
                 </div>
                 <script src="~/lib/jquery/dist/jquery.min.js"></script>
                 <script src="lib/bootstrap/dist/js/bootstrap.js"></script>
-                <script src="js/Home.js"></script>
+                <script src="js/atm.js"></script>
 </body>
 
 </html>

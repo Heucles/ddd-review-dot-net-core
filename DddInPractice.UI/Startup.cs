@@ -29,6 +29,7 @@ namespace DddInPractice.UI
 
             //the row bellow making sure there is only one instance of the SnackMachine through all the application life cycle
             services.AddSingleton<ISnackMachineContainer, SnackMachineContainer>();
+            services.AddSingleton<IAtmContainer, AtmContainer>();
 
             //services.AddScoped<ISnackMachineContainer,SnackMachineContainer>();
 

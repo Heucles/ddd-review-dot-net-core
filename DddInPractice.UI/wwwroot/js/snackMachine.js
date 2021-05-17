@@ -2,9 +2,7 @@ var inputedMoney = 0;
 const BOX_URI = 'https://localhost:5001';
 
 $(document).ready(function () {
-
-    loadInitialState();
-
+    
     function addMoney(route) {
         $.ajax({
             type: 'POST',
@@ -107,42 +105,7 @@ $(document).ready(function () {
         });
 
     });
-
-    $('#return-change').on('click', function () {
-        returnChange();
-    });
 })
-
-
-function loadInitialState() {
-
-    $.ajax({
-        type: 'GET',
-        url: `${BOX_URI}/command/get-snackmachine-state`,
-        success: function (moneyData) {
-            console.log('')
-            console.log('------------------ log while updating the box money ------------------')
-            console.log('')
-            console.log(moneyData);
-            console.log('')
-            console.log('------------------ log while updating the box money ------------------')
-            console.log('')
-            console.log('');
-            updateMoneyState(moneyData)
-        },
-        error: function (err) {
-            console.error('')
-            console.error('------------------ error while updating the box money ------------------')
-            console.error('')
-            console.error(err);
-            console.error('')
-            console.error('------------------ error while updating the box money ------------------')
-            console.error('')
-            console.error(err);
-            alert("Failure Calling The Web Service. Please try again later.");
-        }
-    });
-}
 
 function messageBox(message) {
     $('#vending-message').val(message);

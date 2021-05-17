@@ -12,7 +12,7 @@ namespace DddInPractice.Logic.Atms
         public virtual Money MoneyInside {get; protected set;} = None;
         public virtual decimal MoneyCharged {get; protected set;}
 
-        public void LoadMoney(Money money)
+        public virtual void LoadMoney(Money money)
         {
             this.MoneyInside += money;
         }
@@ -32,7 +32,7 @@ namespace DddInPractice.Logic.Atms
 
         }
 
-        public void TakeMoney(decimal amount)
+        public virtual void TakeMoney(decimal amount)
         {
             if (CanTakeMoney(amount) != string.Empty)
                 throw new InvalidOperationException();

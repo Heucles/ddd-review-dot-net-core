@@ -115,20 +115,23 @@ namespace DddInPractice.UI.Controllers
         private RouteValueDictionary SnackMachineStateResult() => SnackMachineStateResult(String.Empty, String.Empty);
 
         private RouteValueDictionary SnackMachineStateResult(string specialLabel, string specialValue) => new RouteValueDictionary {
-      {
-        specialLabel,
-        specialValue
-      }, {
-        "moneyInTransaction",
-        this._container.SnackMachine.MoneyInTransaction
-      }, {
-        "moneyInside",
-        this._container.SnackMachine.MoneyInside
-      }, {
-        "snackPiles",
-        this._container.SnackMachine.GetAllSnackPiles()
-      },
-    };
+        {
+            specialLabel,
+            specialValue
+        },
+             {
+                "moneyInTransaction",
+                this._container.SnackMachine.MoneyInTransaction
+            },
+             {
+                "moneyInside",
+                this._container.SnackMachine.MoneyInside
+            },
+            {
+                "snackPiles",
+                this._container.SnackMachine.GetAllSnackPiles()
+            },
+        };
         protected IActionResult InsertMoney(MoneyAdded money)
         {
             try
