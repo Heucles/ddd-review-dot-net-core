@@ -72,6 +72,32 @@ This is project for me to review main DDD concepts and to practice .Net Core
 
     [shared-code-bounded-context]: README-REFs/shared-code-bounded-context.png
 
+12. Now that we have new requirements for a management subsystem we should create a new bounded context: 
+
+
+    ![alt text][new-req-1]
+
+    [new-req-1]: README-REFs/new-req-1.png
+
+    The new Bounded Context (Management) has a downstream relationship with the previous Bounded Contexts (SnackMachine and ATM), in such a way that it will use their models to transfer money between them: 
+
+    ![alt text][new-req-2]
+
+    [new-req-2]: README-REFs/new-req-2.png
+
+13. **Domain Events**, in order for us to not need to create coupling between our bounded contexts, we will create a domain event so we can establish that comunication without creating this coupling.
+
+    ![alt text][domain-event-about]
+
+    [domain-event-about]: README-REFs/domain-event-about.png
+
+    ![alt text][domain-event-guideline-1]
+
+    [domain-event-guideline-1]: README-REFs/domain-event-guideline-1.png
+
+    ![alt text][domain-event-guideline-2]
+
+    [domain-event-guideline-2]: README-REFs/domain-event-guideline-2.png
 
 
 9. Creting the database: 
