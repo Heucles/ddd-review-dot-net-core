@@ -1,3 +1,6 @@
+using DddInPractice.Logic.Common;
+using DddInPractice.Logic.Management;
+
 namespace DddInPractice.Logic.Utils
 {
     public static class Initer
@@ -5,6 +8,8 @@ namespace DddInPractice.Logic.Utils
         public static void Init(string connectionString)
         {
             SessionFactory.Init(connectionString);
+            HeadOfficeInstance.Init();
+            DomainEvents.Init();
         }
     }
 }

@@ -4,6 +4,9 @@ using Xunit;
 using FluentAssertions;
 
 using static DddInPractice.Logic.SharedKernel.Money;
+using DddInPractice.Logic.Management;
+using DddInPractice.Logic.Common;
+using DddInPractice.Logic.Utils;
 
 namespace DddInPractice.Tests
 {
@@ -56,5 +59,29 @@ namespace DddInPractice.Tests
             //Then
             atm.MoneyCharged.Should().Be(1.12m);
         }
+
+
+        [Fact]
+        public void Take_money_raises_an_event()
+        {
+            Initer.Init(@"Server=.;Database=DddInPractice;User Id=sa;Password=reviewddd@123;");
+
+            //Given
+            Atm atm = new Atm();
+            atm.LoadMoney(Dollar);
+
+            BalanceChangedEvent balanceChangedEvent = null;
+
+            //When
+
+            DomainEvents.Register<BalanceChangedEvent>(ev => balanceChangedEvent = ev);
+            atm.TakeMoney(1m);
+
+            //Then
+            balanceChangedEvent.Should().NotBeNull();
+            balanceChangedEvent.Delta.Should().Be(1.01m);
+
+        }
+
     }
 }
