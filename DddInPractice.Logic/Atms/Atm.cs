@@ -1,5 +1,6 @@
 using System;
 using DddInPractice.Logic.Common;
+using DddInPractice.Logic.Management;
 using DddInPractice.Logic.SharedKernel;
 
 using static DddInPractice.Logic.SharedKernel.Money;
@@ -42,6 +43,9 @@ namespace DddInPractice.Logic.Atms
 
             decimal amountWithCommission = CalculateAmountWithCommission(amount);
             this.MoneyCharged += amountWithCommission;
+
+            // raising the event
+            var ev = new BalanceChangedEvent(amountWithCommission);
         }
 
         private decimal CalculateAmountWithCommission(decimal amount){
