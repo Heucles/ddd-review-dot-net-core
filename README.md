@@ -99,6 +99,37 @@ This is project for me to review main DDD concepts and to practice .Net Core
 
     [domain-event-guideline-2]: README-REFs/domain-event-guideline-2.png
 
+    1. Dispatching events the right way 
+
+        The Domain model should only be responsible for **creating** the events and not for  **dispatching and managing its lifeCycle**, this should be delegatad to the **insfrastructure layer**.
+
+        For our specific case, we are relying on NHibernate extensions, which allow us to extend its behaviour with our own code, this way, we listen to events that NHibernat releases when it finishes publishing the domain classes, this is expressed by the code on: 
+        
+        [EventListener.cs](path%20with%20spaces/other_file.md)
+
+        Where it is implemented the behaviour that reacts to the events, and also this code section: 
+
+        ```Csharp
+
+            ExposeConfiguration(x =>
+            {
+                x.EventListeners.PostCommitUpdateEventListeners = new NHibernate.Event.IPostUpdateEventListener[] { new EventListener() };
+                x.EventListeners.PostCommitDeleteEventListeners = new NHibernate.Event.IPostDeleteEventListener[] { new EventListener() };
+                x.EventListeners.PostCommitInsertEventListeners = new NHibernate.Event.IPostInsertEventListener[] { new EventListener() };
+                x.EventListeners.PostCollectionUpdateEventListeners = new NHibernate.Event.IPostCollectionUpdateEventListener[] { new EventListener() };
+
+            });
+        
+        ```
+        
+        Over the [SessionFactory.cs](path%20with%20spaces/other_file.md) file
+
+        As you can see, the collection of domain events is defined into the **AggregateRoot Base Class** class, and that is by design, as the Aggregate Root is responsible for maintaining aggregate invariants and consistency boundaries, they are also responsible for all of the domain events that occur within the aggregate.
+
+        ![alt text][dispatching-events]
+
+        [dispatching-events]: README-REFs/dispatching-events.png
+
 
 9. Creting the database: 
 
