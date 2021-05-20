@@ -52,7 +52,16 @@ namespace DddInPractice.Logic.Utils
                 )
             .Conventions.Add<TableNameConvention>()
             .Conventions.Add<HiLoConvention>()
-            );
+            ).
+
+            ExposeConfiguration(x =>
+            {
+                x.EventListeners.PostCommitUpdateEventListeners = new NHibernate.Event.IPostUpdateEventListener[] { new EventListener() };
+                x.EventListeners.PostCommitDeleteEventListeners = new NHibernate.Event.IPostDeleteEventListener[] { new EventListener() };
+                x.EventListeners.PostCommitInsertEventListeners = new NHibernate.Event.IPostInsertEventListener[] { new EventListener() };
+                x.EventListeners.PostCollectionUpdateEventListeners = new NHibernate.Event.IPostCollectionUpdateEventListener[] { new EventListener() };
+
+            });
 
             return configuration.BuildSessionFactory();
 
@@ -71,8 +80,8 @@ namespace DddInPractice.Logic.Utils
             {
                 instance.Column(instance.EntityType.Name + "ID");
                 instance.GeneratedBy.HiLo(
-                    table : "[dbo].[Ids]", 
-                    column: "NextHigh", 
+                    table: "[dbo].[Ids]",
+                    column: "NextHigh",
                     maxLo: "9", // size of the batches
                     where: "EntityName = '" + instance.EntityType.Name + "'");
             }

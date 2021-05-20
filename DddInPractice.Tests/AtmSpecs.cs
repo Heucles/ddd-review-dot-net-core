@@ -70,18 +70,19 @@ namespace DddInPractice.Tests
             Atm atm = new Atm();
             atm.LoadMoney(Dollar);
 
-            BalanceChangedEvent balanceChangedEvent = null;
-
             //When
-
-            DomainEvents.Register<BalanceChangedEvent>(ev => balanceChangedEvent = ev);
             atm.TakeMoney(1m);
 
             //Then
+            var balanceChangedEvent = atm.DomainEvents[0] as BalanceChangedEvent;
             balanceChangedEvent.Should().NotBeNull();
             balanceChangedEvent.Delta.Should().Be(1.01m);
 
+            // Later add extension method to check the event without having this three lines above
+
         }
+
+        
 
     }
 }

@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace DddInPractice.Logic.Common
 {
-    public static class DomainEvents
+    public static class DomainEvents_Old
     {
         private static Dictionary<Type, List<Delegate>> _dynamicHandlers;
         private static List<Type> _staticHandlers;

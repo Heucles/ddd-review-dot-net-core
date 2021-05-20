@@ -47,7 +47,7 @@ namespace DddInPractice.Logic.Atms
             // raising the event
             // This implementation hurts the isolation principle of DDD, since it needs to 
             // Access a class which is in a outer scope from its on layer
-            DomainEvents.Raise(new BalanceChangedEvent(amountWithCommission));
+            AddDomainEvent(new BalanceChangedEvent(amountWithCommission));
         }
 
         private decimal CalculateAmountWithCommission(decimal amount){
