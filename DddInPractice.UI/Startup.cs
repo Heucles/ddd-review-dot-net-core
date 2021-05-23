@@ -1,4 +1,6 @@
 using DddInPractice.Logic.Utils;
+using DddInPractice.UI.Commons;
+using DddInPractice.UI.Commons.Impl;
 using DddInPractice.UI.Models;
 using DddInPractice.UI.Models.Impl;
 using DddInPractice.UI.Utils;
@@ -31,6 +33,8 @@ namespace DddInPractice.UI
             services.AddSingleton<ISnackMachineContainer, SnackMachineContainer>();
             services.AddSingleton<IAtmContainer, AtmContainer>();
 
+            services.AddScoped<ISessionContainer, SessionContainer>();
+
             //services.AddScoped<ISnackMachineContainer,SnackMachineContainer>();
 
         }
@@ -59,7 +63,7 @@ namespace DddInPractice.UI
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=SnackMachine}/{action=Index}/{id?}");
+                    pattern: "{controller=HeadOffice}/{action=Index}/{id?}");
             });
         }
     }

@@ -1,0 +1,103 @@
+﻿@{
+    ViewData["Title"] = "HeadOffice";
+}
+
+@model DddInPractice.UI.ViewModels.HeadOfficeViewModel
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <style>
+        .col-sm-4 {
+            border: groove
+        }
+
+        #headerRow {
+            text-align: center
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <h1 id="headerRow">Head Office</h1>
+        </div>
+        <hr>
+
+
+        <div class="form-group">
+
+            <div class="form-group">
+
+                <b>Balance: $</b> <b id="balance-lbl">@Model.HeadOffice.Balance</b>
+            </div>
+            <div class="form-group">
+
+                <b>Cash: $</b> <b id="cash-lbl">@Model.HeadOffice.Cash.Amount</b>
+            </div>
+            <br>
+            <b>SnackMachine</b>
+            <br>
+            <div class="form-group">
+                <table id="snackMachines" class="table table-dark">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Money Inside</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.SnackMachines)
+                        {
+                            <tr>
+                                <td scope="row">@item.Id</td>
+                                <td>@item.MoneyInside</td>
+                            </tr>
+
+                        }
+
+                    </tbody>
+                </table>
+                <button type="button" class="btn btn-secondary form-control col-sm-offset-1"
+                    id="unload-cash-snack-machine" style="width:30%">Unload Cash</button>
+
+                <br>
+                <br>
+                <br>
+                <b>ATM</b>
+                <br>
+                <table id="atms" class="table table-dark">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Cash</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                        @foreach (var item in Model.Atms)
+                        {
+                            <tr>
+                                <td scope="row">@item.Id</td>
+                                <td>@item.Cash</td>
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
+                <button type="button" class="btn btn-secondary form-control col-sm-offset-1" id="load-cash-atm"
+                    style="width:30%">Load Cash</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="js/headOffice.js"></script>
+</body>
+<br><br><br>
+
+</html>

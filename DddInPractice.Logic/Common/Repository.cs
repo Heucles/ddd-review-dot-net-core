@@ -5,7 +5,7 @@ namespace DddInPractice.Logic.Common
 {
     public abstract class Repository<T> where T : AggregateRoot
     {
-        private ISession _session;
+        protected ISession _session { private set; get; }
         public Repository(ISession session)
         {
             this._session = session;
@@ -18,7 +18,8 @@ namespace DddInPractice.Logic.Common
 
         public void Save(T aggregateRoot)
         {
-            using (ITransaction transaction = _session.BeginTransaction()){
+            using (ITransaction transaction = _session.BeginTransaction())
+            {
                 _session.SaveOrUpdate(aggregateRoot);
                 transaction.Commit();
             }

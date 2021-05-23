@@ -302,4 +302,4 @@ This is project for me to review main DDD concepts and to practice .Net Core
 
 * https://enterprisecraftsmanship.com/posts/email-uniqueness-as-aggregate-invariant/
 
-https://enterprisecraftsmanship.com/posts/optimistic-locking-automatic-retry/
+* https://enterprisecraftsmanship.com/posts/optimistic-locking-automatic-retry/
